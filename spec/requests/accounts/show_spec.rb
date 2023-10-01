@@ -33,13 +33,13 @@ Building a better future, one line of code at a time.
 
 # · 
 require "rails_helper"
-require Lesli::Engine.root.join("spec/support/lesli_request_tester")
+require Lesli::Engine.root.join("spec/support/testers/request")
 
-ENGINE_MOUNTED_PATH = Lesli::Engine.routes.find_script_name({})
+ENGINE_MOUNTED_PATH ||= LesliAdmin::Engine.routes.find_script_name({})
 
 
 # · 
-RSpec.describe "GET:/lesli/account.json", type: :request do
+RSpec.describe "GET:#{ENGINE_MOUNTED_PATH}/account.json", type: :request do
     include_context "request user authentication"
 
     before(:each) do

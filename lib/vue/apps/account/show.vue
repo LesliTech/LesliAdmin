@@ -69,7 +69,7 @@ onMounted(() => {
 
 </script>
 <template>
-    <lesli-content>
+    <lesli-application-container>
         <lesli-header title="Account information">
         </lesli-header>
         <lesli-tabs v-model="tab">
@@ -77,7 +77,7 @@ onMounted(() => {
                 <form-information></form-information>
             </lesli-tab-item>
         </lesli-tabs>
-    </lesli-content>
+    </lesli-application-container>
     <!-- 
     <lesli-tab-item title="Address" icon="location_on">
         <address-form></address-form>

@@ -35,11 +35,13 @@ require_relative "lib/lesli_admin/version"
 Gem::Specification.new do |spec|
     spec.name        = "lesli_admin"
     spec.version     = LesliAdmin::VERSION
+    spec.platform    = Gem::Platform::RUBY
+    spec.license     = "GPL-3.0"
     spec.authors     = ["The Lesli Development Team"]
     spec.email       = ["hello@lesli.tech"]
     spec.homepage    = "https://www.lesli.dev/"
-    spec.summary     = "Administration are for the Lesli Framework"
-    spec.description = "Administration are for the Lesli Framework"
+    spec.summary     = "Administration area for the Lesli Framework"
+    spec.description = "Administration area for the Lesli Framework"
 
     # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
     # to allow pushing to a single host or delete this section to allow pushing to any host.

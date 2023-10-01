@@ -123,7 +123,7 @@ function showUser(user) {
 }
 </script>
 <template>
-    <lesli-application>
+    <lesli-application-container>
         <lesli-header :title="translations.core.users.view_text_title_users + ' (' +storeUsers.index.pagination.total+ ')' ">
             <lesli-button icon="add" :to="url.root(props.appMountPath+`/new`)">
                 {{ translations.core.users.view_text_add_user }}
@@ -197,5 +197,5 @@ function showUser(user) {
                 </a>
             </template>
         </lesli-table>
-    </lesli-application>
+    </lesli-application-container>
 </template>
