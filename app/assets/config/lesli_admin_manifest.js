@@ -36,3 +36,4 @@ Building a better future, one line of code at a time.
 
 //= link lesli_admin/application.css
 //= link lesli_admin/application.js
+//= link lesli_admin/translations.js

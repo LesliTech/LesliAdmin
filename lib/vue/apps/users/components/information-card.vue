@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
 
-Lesli · Ruby on Rails Development Platform.
+Lesli · Ruby on Rails SaaS Development Framework.
 
 Made with ♥ by https://www.lesli.tech
 Building a better future, one line of code at a time.
@@ -26,16 +26,13 @@ Building a better future, one line of code at a time.
 @website  https://www.lesli.tech
 @license  GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
 
-// · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
+// · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
 */
 
 
-// · import vue tools
-
-
 // · import lesli stores
-import { useUser } from "LesliApp/administration/stores/user"
+import { useUser } from "Lesli/stores/user"
 
 
 // · implement stores
@@ -52,7 +49,7 @@ const translations = {
 
 </script>
 <template>
-    <div class="information-card mb-5">
+    <div class="user-information-card mb-5">
         <div class="media is-align-items-center">
             <div class="media-left">
                 <figure class="image is-128x128">

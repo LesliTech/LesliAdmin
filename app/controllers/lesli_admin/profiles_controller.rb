@@ -30,20 +30,27 @@ Building a better future, one line of code at a time.
 // · 
 =end
 module LesliAdmin
-    class Engine < ::Rails::Engine
-        isolate_namespace LesliAdmin
+    class ProfilesController < ApplicationController
+        before_action :set_profile, only: %i[ show ]
 
-        initializer :lesli_admin do |app|
-
-            # register assets manifest
-            config.assets.precompile += %w[lesli_admin_manifest.js]
-
-            # register engine migrations path
-            unless app.root.to_s.match root.to_s
-                config.paths["db/migrate"].expanded.each do |expanded_path|
-                    app.config.paths["db/migrate"] << expanded_path
-                end
+        # GET /profiles/1
+        def show
+            respond_to do |format|
+                format.html { }
+                format.json { respond_with_successful(@profile.show) }
             end
+        end
+
+        private
+
+        # Use callbacks to share common setup or constraints between actions.
+        def set_profile
+            @profile = Lesli::UserService.new(current_user, query).find(current_user.id)
+        end
+
+        # Only allow a list of trusted parameters through.
+        def profile_params
+            params.fetch(:profile, {})
         end
     end
 end

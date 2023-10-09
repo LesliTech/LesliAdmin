@@ -1,0 +1,20 @@
+{
+  "en": {
+    "dashboards": {
+      "button_my": "My button in my dashboard",
+      "column_prueba_de_calendario": "my calendar"
+    },
+    "users": {
+      "title_users": "Users"
+    }
+  },
+  "es": {
+    "dashboards": {
+      "button_my": "Mi boton en mi dashboard",
+      "column_prueba_de_calendario": ":lesli_driver.dashboards.column_prueba_de_calendario:"
+    },
+    "users": {
+      "title_users": "Usuarios"
+    }
+  }
+}

@@ -54,7 +54,9 @@ const storeUsers = useUsers()
 const translations = {
     core: {
         roles: I18n.t("core.roles"),
-        users: I18n.t("core.users"),
+        users: {
+            view_text_title_users: i18n.t('lesli_admin.users.title_users')
+        },
         shared: I18n.t("core.shared")
     }
 }
@@ -96,6 +98,7 @@ const columns = [{
 // ·
 const selection = ref()
 
+
 // · defining props
 const props = defineProps({
     appMountPath: {
@@ -114,6 +117,7 @@ const props = defineProps({
 // · initializing
 onMounted(() => {
     storeUsers.fetchUsers()
+    i18n.t("lesli_admin.users.title_users")
 })
 
 
@@ -136,6 +140,8 @@ function showUser(user) {
             </lesli-button>
         </lesli-header>
 
+        <lesli-toolbar>
+        </lesli-toolbar>
         <!--
         <lesli-toolbar 
             @search="storeUsers.search"
@@ -165,7 +171,7 @@ function showUser(user) {
             :columns="columns"
             :records="storeUsers.index.records"
             :pagination="storeUsers.index.pagination"
-            :link="(user) => url.root(props.appMountPath+`/${user.id}`).s"
+            :link="(user) => url.admin('users/:id', user.id)"
             @paginate="storeUsers.paginateIndex"
             @sort="storeUsers.sortIndex">
 

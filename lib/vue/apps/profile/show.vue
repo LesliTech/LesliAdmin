@@ -40,12 +40,18 @@ import { useRouter, useRoute } from 'vue-router'
 
 
 // · import lesli stores
-import { useUser } from "CloudAdmin/stores/user"
-import { useProfile } from "Lesli/shared/stores/profile"
+import { useUser } from "Lesli/stores/user"
 
+
+// · implement stores
+const storeUser = useUser()
+const router = useRouter()
+const route = useRoute()
 
 // · import profile components
-import informationCard from "CloudAdmin/apps/users/components/information-card.vue"
+
+import informationCard from "LesliAdmin/apps/users/components/information-card.vue"
+/*
 import informationForm from "CloudAdmin/apps/users/components/information-form.vue"
 
 import managementSession from "CloudAdmin/apps/users/components/management-sessions.vue"
@@ -53,6 +59,8 @@ import managementSecurity from "CloudAdmin/apps/users/components/management-secu
 
 import integrationsInformation from "CloudAdmin/apps/users/components/integrations-information.vue"
 import settings from "CloudAdmin/apps/users/components/management-settings.vue"
+*/
+
 /*
 import cardInformation from "../users/components/information-card.vue"
 import formInformation from "../users/components/information-form.vue"
@@ -62,12 +70,6 @@ import subscriptionsComponent from "./components/subscriptions.vue"
 import settings from "../users/components/settings.vue"
 import changeEmail from "./components/change-email.vue"
 */
-
-
-// · implement stores
-const storeUser = useUser()
-const router = useRouter()
-const route = useRoute()
 
 
 // · translations
@@ -86,20 +88,25 @@ const tab = ref(0)
 
 // · 
 onMounted(() => {
-    storeUser.getUser()
-    storeUser.getOptions()
+    //storeUser.getUser()
+    //storeUser.getOptions()
 })
 
 </script>
 <template>
-    <application-component>
+    <lesli-application-container>
+        {{ storeProfile.profile }}
         <information-card></information-card>
+    </lesli-application-container>
+    <!--
+    <application-component>
+        
         <lesli-tabs v-model="tab" v-if="storeUser.user.id">
             <lesli-tab-item icon="info_outline" :title="translations.core.users.view_tab_title_information">
                 <information-form></information-form>
             </lesli-tab-item>
             <lesli-tab-item icon="security" :title="translations.core.users.view_tab_title_roles_and_privileges">
-                <!--form-roles></form-roles -->
+                < ! - -form-roles></form-roles - - >
             </lesli-tab-item>
             <lesli-tab-item icon="lock_outline" :title="translations.core.users.view_tab_title_security || 'Security'">
                 <management-security></management-security>
@@ -108,11 +115,11 @@ onMounted(() => {
                 <management-session></management-session>
             </lesli-tab-item>
             <lesli-tab-item icon="settings" :title="translations.core.users.view_tab_title_settings">
-                <!--settings></settings-->
+                < ! - - settings></settings - - >
             </lesli-tab-item>
         </lesli-tabs>
     </application-component>
-    <!--
+    
     <section class="application-component">
         <information-card></information-card>
         <lesli-tabs v-if="storeUser.user.id">
