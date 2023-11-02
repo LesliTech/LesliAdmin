@@ -18,18 +18,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
 
-Lesli · Your Smart Business Assistant. 
+Lesli · Ruby on Rails SaaS Development Framework.
 
 Made with ♥ by https://www.lesli.tech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
-@website  https://lesli.tech
+@website  https://www.lesli.tech
 @license  GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
 
-// · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
+// · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
-
 */
 
 
@@ -40,7 +39,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 
 // · import lesli stores
-import { useUser } from "Lesli/stores/user"
+import { useUser } from "LesliAdmin/stores/user"
 
 
 // · implement stores
@@ -48,9 +47,10 @@ const storeUser = useUser()
 const router = useRouter()
 const route = useRoute()
 
-// · import profile components
 
+// · import profile components
 import informationCard from "LesliAdmin/apps/users/components/information-card.vue"
+import informationForm from "LesliAdmin/apps/users/components/information-form.vue"
 /*
 import informationForm from "CloudAdmin/apps/users/components/information-form.vue"
 
@@ -88,15 +88,19 @@ const tab = ref(0)
 
 // · 
 onMounted(() => {
-    //storeUser.getUser()
+    storeUser.getUser()
     //storeUser.getOptions()
 })
 
 </script>
 <template>
     <lesli-application-container>
-        {{ storeProfile.profile }}
         <information-card></information-card>
+        <lesli-tabs v-model="tab">
+            <lesli-tab-item icon="info_outline" title="Information">
+                <information-form></information-form>
+            </lesli-tab-item>
+        </lesli-tabs>
     </lesli-application-container>
     <!--
     <application-component>

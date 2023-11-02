@@ -1,20 +1,38 @@
 {
   "en": {
-    "dashboards": {
-      "button_my": "My button in my dashboard",
-      "column_prueba_de_calendario": "my calendar"
+    "lesli": {
+      "shared": {
+        "title_lesli": ":lesli.shared.title_lesli:"
+      },
+      "users": {
+        "title_users": "Users"
+      }
     },
-    "users": {
-      "title_users": "Users"
+    "lesli_admin": {
+      "shared": {
+        "title_lesli": ":lesli.shared.title_lesli:"
+      },
+      "users": {
+        "title_users": "Users"
+      }
     }
   },
   "es": {
-    "dashboards": {
-      "button_my": "Mi boton en mi dashboard",
-      "column_prueba_de_calendario": ":lesli_driver.dashboards.column_prueba_de_calendario:"
+    "lesli": {
+      "shared": {
+        "title_lesli": "Lesli en español "
+      },
+      "users": {
+        "title_users": "Usuarios"
+      }
     },
-    "users": {
-      "title_users": "Usuarios"
+    "lesli_admin": {
+      "shared": {
+        "title_lesli": "Lesli en español "
+      },
+      "users": {
+        "title_users": "Usuarios"
+      }
     }
   }
 }

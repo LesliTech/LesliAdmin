@@ -36,7 +36,7 @@ module LesliAdmin
         # GET /profiles/1
         def show
             respond_to do |format|
-                format.html { }
+                format.html 
                 format.json { respond_with_successful(@profile.show) }
             end
         end
@@ -45,7 +45,7 @@ module LesliAdmin
 
         # Use callbacks to share common setup or constraints between actions.
         def set_profile
-            @profile = Lesli::UserService.new(current_user, query).find(current_user.id)
+            @profile = UserService.new(current_user, query).find(current_user.id)
         end
 
         # Only allow a list of trusted parameters through.

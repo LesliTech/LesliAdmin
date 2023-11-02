@@ -37,7 +37,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 
 // · import lesli stores
-import { useUser } from "Lesli/stores/user"
+import { useUser } from "LesliAdmin/stores/user"
 
 
 // · implement stores

@@ -1,6 +1,5 @@
 ---
 :es:
-  users:
-    title_users: Usuarios
-  dashboards:
-    button_my: Mi boton en mi dashboard
+  lesli_admin:
+    shared:
+      button_save: Guardar

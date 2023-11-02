@@ -117,7 +117,6 @@ const props = defineProps({
 // · initializing
 onMounted(() => {
     storeUsers.fetchUsers()
-    i18n.t("lesli_admin.users.title_users")
 })
 
 

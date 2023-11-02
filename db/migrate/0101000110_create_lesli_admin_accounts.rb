@@ -1,4 +1,5 @@
-/*
+=begin
+
 Lesli
 
 Copyright (c) 2023, Lesli Technologies, S. A.
@@ -27,7 +28,15 @@ Building a better future, one line of code at a time.
 
 // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
-*/
+=end
 
-body.lesli-admin-users, 
-body.lesli-admin-profile { @import "users"; }
+class CreateLesliAdminAccounts < ActiveRecord::Migration[6.0]
+    def change
+        create_table :lesli_admin_accounts do |t|
+            t.integer   :status
+            t.datetime  :deleted_at, index: true
+            t.timestamps 
+        end
+        add_reference(:lesli_admin_accounts, :account, foreign_key: { to_table: :lesli_accounts })
+    end
+end

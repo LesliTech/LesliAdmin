@@ -36,7 +36,7 @@ import { computed, onMounted } from "vue"
 
 
 // · import lesli stores
-import { useAccount } from "LesliAdmin/stores/account"
+import { useAccount } from "Lesli/stores/account"
 
 
 // · import account components

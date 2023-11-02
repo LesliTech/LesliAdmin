@@ -6,7 +6,6 @@ import { lesliChartLine } from "lesli-vue/components"
 <template>
     <lesli-application-container>
         <lesli-header title="Dashboard"></lesli-header>
-
         <div class="columns">
             <div class="column">
                 <lesli-application-component>
