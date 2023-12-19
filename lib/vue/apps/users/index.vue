@@ -52,12 +52,16 @@ const storeUsers = useUsers()
 
 // · translations
 const translations = {
+    lesli: {
+        shared: i18n.t("lesli.shared")
+    },
     core: {
-        roles: I18n.t("core.roles"),
-        users: {
-            view_text_title_users: i18n.t('lesli_admin.users.title_users')
-        },
-        shared: I18n.t("core.shared")
+        users: i18n.t("lesli_admin.users"),
+        roles: {},
+        shared: {}
+    },
+    admin: {
+        users: i18n.t("lesli_admin.users")
     }
 }
 
@@ -69,7 +73,7 @@ const columns = [{
     sort: true
 }, {
     field: "name",
-    label: translations.core.users.view_table_header_name,
+    label: translations.admin.users.table_header_name,
     sort: true
 }, {
     field: "email",
@@ -127,15 +131,15 @@ function showUser(user) {
 </script>
 <template>
     <lesli-application-container>
-        <lesli-header :title="translations.core.users.view_text_title_users + ' (' +storeUsers.index.pagination.total+ ')' ">
+        <lesli-header :title="translations.admin.users.view_users + ' (' +storeUsers.index.pagination.total+ ')' ">
             <lesli-button icon="add" :to="url.root(props.appMountPath+`/new`)">
-                {{ translations.core.users.view_text_add_user }}
+                {{ translations.lesli.shared.button_add_new }}
             </lesli-button>
             <lesli-button
                 icon="refresh"
                 :loading="storeUsers.loading"
                 @click="storeUsers.getUsers()">
-                {{ translations.core.shared.view_text_btn_reload }}
+                {{ translations.lesli.shared.button_reload }}
             </lesli-button>
         </lesli-header>
 

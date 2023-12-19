@@ -36,7 +36,7 @@ import { onMounted, inject } from "vue"
 
 
 // · import lesli stores
-import { useUser } from "Lesli/stores/user"
+import { useUser } from "LesliAdmin/stores/user"
 
 
 // · import vue router composable

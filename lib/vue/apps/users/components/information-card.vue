@@ -32,7 +32,7 @@ Building a better future, one line of code at a time.
 
 
 // · import lesli stores
-import { useUser } from "Lesli/stores/user"
+import { useUser } from "LesliAdmin/stores/user"
 
 
 // · implement stores

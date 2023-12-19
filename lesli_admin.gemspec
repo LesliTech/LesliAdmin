@@ -55,7 +55,9 @@ Gem::Specification.new do |spec|
         Dir["{app,config,db,lib}/**/*", "license", "Rakefile", "readme.md"]
     end
 
-    spec.add_dependency "rails", ">= 7.0.6"
+    spec.required_ruby_version = ">= 2.7"
 
-    spec.add_dependency "lesli", ">= 5"
+    spec.add_dependency "rails", "~> 7.0.6"
+
+    spec.add_dependency "lesli", "~> 5"
 end

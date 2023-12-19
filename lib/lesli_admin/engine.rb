@@ -29,6 +29,7 @@ Building a better future, one line of code at a time.
 // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
 =end
+
 module LesliAdmin
     class Engine < ::Rails::Engine
         isolate_namespace LesliAdmin

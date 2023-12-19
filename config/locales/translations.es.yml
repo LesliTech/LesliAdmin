@@ -1,5 +1,10 @@
 ---
 :es:
   lesli_admin:
+    users:
+      table_header_name: Nombre
+      view_users: Usuarios
+  lesli:
     shared:
-      button_save: Guardar
+      button_add_new: Agregar nuevo
+      button_reload: Recargar
