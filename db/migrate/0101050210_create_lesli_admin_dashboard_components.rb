@@ -29,28 +29,25 @@ Building a better future, one line of code at a time.
 // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
 =end
-module LesliAdmin
-    class ProfilesController < ApplicationController
-        before_action :set_profile, only: %i[ show ]
 
-        # GET /profiles/1
-        def show
-            respond_to do |format|
-                format.html 
-                format.json { respond_with_successful(@profile.show) }
+class CreateLesliAdminDashboardComponents < ActiveRecord::Migration[6.1]
+    def change
+        gem_path = Lesli::System.engine("Lesli", "dir")
+        table_base_structure = JSON.parse(File.read(File.join(gem_path, "db", "structure", "00000502_dashboard_components.json")))
+        create_table :lesli_admin_dashboard_components do |t|
+            table_base_structure.each do |column|
+                t.send(
+                    column["type"].parameterize.underscore.to_sym,
+                    column["name"].parameterize.underscore.to_sym
+                )
             end
+            t.timestamps
         end
 
-        private
-
-        # Use callbacks to share common setup or constraints between actions.
-        def set_profile
-            @profile = UserService.new(current_user, query).find(current_user.id)
-        end
-
-        # Only allow a list of trusted parameters through.
-        def profile_params
-            params.fetch(:profile, {})
-        end
+        add_reference(
+            :lesli_admin_dashboard_components, :dashboard, 
+            foreign_key: { to_table: :lesli_admin_dashboards }, 
+            index: { name: "lesli_admin_dashboard_components_dashboards" }
+        )
     end
 end

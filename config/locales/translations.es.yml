@@ -1,10 +1,31 @@
 ---
 :es:
   lesli_admin:
-    users:
-      table_header_name: Nombre
-      view_users: Usuarios
+    accounts:
+      view_title: Informacion de cuenta
+      tab_general_information: Información General
+      column_company_name: Nombre de Empresa
+      column_company_name_legal: Razon social
+      column_city: Ciudad
+      column_tag_line: Slogan
+      column_postal_code: Código postal
+      column_region: Región
+      tab_contact: Contacto
+      tab_address: Dirección
+      column_country: País
+      column_address: Dirección
+      column_public_email: Email publico
+      column_phone_number: Teléfono
+      column_website: Sitio web
+      view_subtitle_social_media: Redes sociales
   lesli:
     shared:
+      view_discussions: Discusiones
       button_add_new: Agregar nuevo
       button_reload: Recargar
+      view_files: Archivos
+      view_quick_actions: Acciones rapidas
+      button_list: Lista
+      button_save: Guardar
+      button_delete: Eliminar
+      button_edit: Editar

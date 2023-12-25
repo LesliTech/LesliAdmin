@@ -31,6 +31,20 @@ Building a better future, one line of code at a time.
 =end
 
 module LesliAdmin
-    class DashboardsController < Lesli::Shared::DashboardsController
+    class Dashboard::Component < ApplicationRecord
+
+        belongs_to :dashboard, inverse_of: :components
+
+        def self.component_ids
+            ["version"]
+        end
+        # components_ids: {
+        #     list_new_tickets: "list_new_tickets",
+        #     list_my_tickets: "list_my_tickets",
+        #     list_unassigned_tickets: "list_unassigned_tickets",
+        #     chart_tickets_by_type: "chart_tickets_by_type",
+        #     chart_tickets_by_category: "chart_tickets_by_category",
+        #     hours_worked: "hours_worked"
+        # }
     end
 end

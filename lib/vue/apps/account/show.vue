@@ -41,8 +41,8 @@ import { useAccount } from "Lesli/stores/account"
 
 // · import account components
 import formInformation from "./components/form-information.vue"
-// import addressForm from "./components/address-form.vue"
-// import contactForm from "./components/contact-form.vue"
+import formAddress from "./components/form-address.vue"
+import formContact from "./components/form-contact.vue"
 
 
 // · implement stores
@@ -51,6 +51,7 @@ const storeAccount = useAccount()
 
 // · translations
 const translations = {
+    admin: i18n.t("lesli_admin.accounts"),
     core: {
         onboardings: I18n.t("core.onboardings"),
         accounts: I18n.t("core.accounts")
@@ -70,20 +71,20 @@ onMounted(() => {
 </script>
 <template>
     <lesli-application-container>
-        <lesli-header title="Account information">
+        <lesli-header :title="translations.admin.view_title">
         </lesli-header>
         <lesli-tabs v-model="tab">
-            <lesli-tab-item title="General Information" icon="business">
+            <lesli-tab-item :title="translations.admin.tab_general_information" icon="business">
                 <form-information></form-information>
+            </lesli-tab-item>
+
+            <lesli-tab-item :title="translations.admin.tab_address" icon="location_on">
+                <form-address></form-address>
+            </lesli-tab-item>
+
+            <lesli-tab-item :title="translations.admin.tab_contact" icon="contact_page">
+                <form-contact></form-contact>
             </lesli-tab-item>
         </lesli-tabs>
     </lesli-application-container>
-    <!-- 
-    <lesli-tab-item title="Address" icon="location_on">
-        <address-form></address-form>
-    </lesli-tab-item>
-    <lesli-tab-item title="Contact" icon="contact_page">
-        <contact-form></contact-form>
-    </lesli-tab-item>
-    -->
 </template>

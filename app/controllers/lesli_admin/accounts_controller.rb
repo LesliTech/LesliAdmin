@@ -32,7 +32,7 @@ Building a better future, one line of code at a time.
 
 module LesliAdmin
     class AccountsController < ApplicationController
-        before_action :set_account, only: %i[show edit update destroy]
+        before_action :set_account, only: %i[update]
 
         # GET /accounts/1
         # GET /accounts/1.json
@@ -41,7 +41,7 @@ module LesliAdmin
                 format.html {}
                 format.json do
                     set_account
-                    respond_with_successful(@account)
+                    respond_with_successful(AccountService.new(current_user, query).show)
                 end
             end
         end
@@ -92,9 +92,7 @@ module LesliAdmin
 
         # Use callbacks to share common setup or constraints between actions.
         def set_account
-            #@account = current_user.account
-            @account = Account.first
-            return respond_with_not_found unless @account
+            @account = current_user.account
         end
 
         # Only allow a list of trusted parameters through.

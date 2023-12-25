@@ -1,6 +1,5 @@
 <script setup>
 /*
-
 Lesli
 
 Copyright (c) 2023, Lesli Technologies, S. A.
@@ -18,103 +17,89 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
 
-Lesli · Your Smart Business Assistant. 
+Lesli · Ruby on Rails SaaS Development Framework.
 
 Made with ♥ by https://www.lesli.tech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
-@website  https://lesli.tech
+@website  https://www.lesli.tech
 @license  GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
 
-// · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
+// · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
-
 */
 
 
 // · import vue tools
 import { onMounted, computed, ref } from "vue"
 
+
 // · import lesli stores
-import { useAccount } from "CloudAdmin/stores/account"
+import { useAccount } from "Lesli/stores/account"
+
 
 // · implement stores
 const storeAccount = useAccount()
 
+
 // · translations
 const translations = {
-    shared: I18n.t("core.shared"),
-    core: {
-        onboardings: I18n.t("core.onboardings"),
-        accounts: I18n.t("core.accounts"),
-    }
+    shared: i18n.t("lesli.shared"),
+    admin: i18n.t("lesli_admin.accounts"),
 }
 
+
+// · 
 const streetNumber = ref("")
 const postalCode = ref("")
 
+
+// · 
 onMounted(() => {
-    storeAccount.getOptions()
+    //storeAccount.getOptions()
 })
 
 </script>
 <template>
-    <form @submit.prevent="storeAccount.updateInfo">
+    <lesli-form flat @submit="storeAccount.update">
         <div class="field">
-            <label class="label">{{ translations.core.onboardings.view_text_column_street }}</label>
+            <label class="label">{{ translations.admin.column_address }}</label>
             <div class="control">
-                <input
-                    class="input"
-                    type="text"
-                    :placeholder="translations.core.onboardings.view_placeholder_street_number"
-                    v-model="storeAccount.accountInfo.address"
-                />
+                <input class="input" type="text" v-model="storeAccount.accountInfo.address" />
             </div>
         </div>
 
         <div class="field">
-            <label class="label">{{ translations.core.onboardings.view_text_column_postal_code }}</label>
+            <label class="label">{{ translations.admin.column_postal_code }}</label>
             <div class="control">
-                <input 
-                    class="input" 
-                    type="text" 
-                    placeholder="XXXXXX"
-                    v-model="storeAccount.accountInfo.postal_code"
-                />
+                <input class="input" type="text" v-model="storeAccount.accountInfo.postal_code" />
             </div>
         </div>
 
         <div class="field">
-            <label class="label">{{ translations.core.onboardings.view_text_column_city }}</label>
+            <label class="label">{{ translations.admin.column_city }}</label>
             <div class="control">
-                <input
-                    class="input"
-                    type="text"
-                    :placeholder="translations.core.onboardings.view_placeholder_city"
-                    v-model="storeAccount.accountInfo.city"
-                />
+                <input class="input" type="text" v-model="storeAccount.accountInfo.city" />
             </div>
         </div>
 
         <div class="field">
-            <label class="label">{{ translations.core.accounts.column_country }}</label>
+            <label class="label">{{ translations.admin.column_country }}</label>
             <div class="control">
                 <lesli-select 
                     :options="storeAccount.options.countries"
-                    v-model="storeAccount.accountInfo.country"
-                    >
+                    v-model="storeAccount.accountInfo.country">
                 </lesli-select>
             </div>
         </div>
 
         <div class="field">
-            <label class="label">{{ translations.core.accounts.column_region }}</label>
+            <label class="label">{{ translations.admin.column_region }}</label>
             <div class="control">
                 <lesli-select 
                     :options="storeAccount.options.regions"
-                    v-model="storeAccount.accountInfo.region"
-                    >
+                    v-model="storeAccount.accountInfo.region">
                 </lesli-select>
             </div>
         </div>
@@ -124,11 +109,11 @@ onMounted(() => {
                 <div class="field">
                     <div class="control">
                         <lesli-button icon="save">
-                            {{ translations.shared.view_btn_save }}
+                            {{ translations.shared.button_save }}
                         </lesli-button>                 
                     </div>
                 </div>
             </div>
         </div>
-    </form>
+    </lesli-form>
 </template>

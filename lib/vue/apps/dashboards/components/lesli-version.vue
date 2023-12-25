@@ -1,5 +1,5 @@
-=begin
-
+<script setup>
+/*
 Lesli
 
 Copyright (c) 2023, Lesli Technologies, S. A.
@@ -28,9 +28,44 @@ Building a better future, one line of code at a time.
 
 // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
-=end
+*/
 
-module LesliAdmin
-    class DashboardsController < Lesli::Shared::DashboardsController
-    end
-end
+
+// · 
+import { onMounted, inject, ref } from "vue"
+
+
+// · 
+const url = inject("url")
+const http = inject("http")
+
+
+// · 
+const lesliVersion = ref({
+    name: "",
+    code: "",
+    path: "",
+    version: "",
+    build: ""
+})
+
+
+// · 
+onMounted(() => {
+    http.get(url.lesli("about")).then(result => {
+        lesliVersion.value = result.find(engine => engine.name == "Lesli")
+    }).catch(error => {
+        console.log(error)
+    })
+})
+</script>
+<template>
+    <lesli-card>
+        <h6 class="title is-6 mb-2">
+            {{ lesliVersion.name }}
+        </h6>
+        <p class="p-0 m-0">version: {{ lesliVersion.version }}</p>
+        <p class="p-0 m-0">buid: {{ lesliVersion.build }}</p>
+        <p class="p-0 m-0">path: {{ lesliVersion.path }}</p>
+    </lesli-card>
+</template>

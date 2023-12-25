@@ -18,44 +18,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
 
-Lesli · Your Smart Business Assistant. 
+Lesli · Ruby on Rails SaaS Development Framework.
 
 Made with ♥ by https://www.lesli.tech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
-@website  https://lesli.tech
+@website  https://www.lesli.tech
 @license  GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
 
-// · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
+// · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
-
 */
 
 
-import { useProfile } from "Lesli/shared/stores/profile"
+// · 
+import LesliDashboard from "Lesli/shared/dashboards/apps/show.vue"
 
-const storeProfile = useProfile()
-
-const translations = {
-    core: {
-        roles: I18n.t("core.roles"),
-        users: I18n.t("core.users"),
-        shared: I18n.t("core.shared")
-    }
-}
 </script>
 <template>
-    <section class="application-component">
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label">Google account</label>
-            </div>
-            <div class="field-body">
-                <lesli-button icon="google">
-                    <a href="/auth/google_oauth2">Connect</a>
-                </lesli-button>
-            </div>
-        </div>
-    </section>
+    <lesli-dashboard></lesli-dashboard>
 </template>

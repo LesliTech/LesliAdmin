@@ -32,7 +32,7 @@ Building a better future, one line of code at a time.
 
 
 // · import vue tools
-import { ref, reactive, onMounted, watch, computed } from "vue"
+import { computed } from "vue"
 
 
 // · import lesli stores
@@ -43,34 +43,67 @@ import { useAccount } from "Lesli/stores/account"
 const storeAccount = useAccount()
 
 
-// · 
+// · translations
 const translations = {
     shared: i18n.t("lesli.shared"),
     admin: i18n.t("lesli_admin.accounts"),
 }
 
+
+// . get reactive info from onboarding store
+const companyInfo = computed(()=> storeOnboarding.companyInfo)
+
 </script>
 <template>
     <lesli-form flat @submit="storeAccount.update">
-
         <div class="field">
-            <label class="label">{{ translations.admin.column_company_name }}</label>
+            <label class="label">{{ translations.admin.column_public_email }}</label>
             <div class="control">
-                <input class="input" type="text" v-model="storeAccount.accountInfo.company_name" >
+                <input class="input" type="text" v-model="storeAccount.accountInfo.public_email" />
             </div>
         </div>
 
         <div class="field">
-            <label class="label">{{ translations.admin.column_company_name_legal }}</label>
+            <label class="label">{{translations.admin.column_phone_number}}</label>
             <div class="control">
-                <input class="input" type="text" v-model="storeAccount.accountInfo.company_name_legal">
+                <input class="input" type="text" v-model="storeAccount.accountInfo.phone_number_1" />
+            </div>
+        </div>
+
+        <p class="my-5">{{translations.admin.view_subtitle_social_media }}</p>
+
+        <div class="field">
+            <label class="label">Github</label>
+            <div class="control">
+                <input class="input" type="text" v-model="storeAccount.accountInfo.github" />
             </div>
         </div>
 
         <div class="field">
-            <label class="label">{{ translations.admin.column_tag_line }}</label>
+            <label class="label">Twitter</label>
             <div class="control">
-                <input class="input" type="text" v-model="storeAccount.accountInfo.company_tagline">
+                <input class="input" type="text" v-model="storeAccount.accountInfo.twitter" />
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">YouTube</label>
+            <div class="control">
+                <input class="input" type="text" v-model="storeAccount.accountInfo.youtube" />
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Linkedin</label>
+            <div class="control">
+                <input class="input" type="text" v-model="storeAccount.accountInfo.linkedin" />
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Facebook</label>
+            <div class="control">
+                <input class="input" type="text" v-model="storeAccount.accountInfo.facebook" />
             </div>
         </div>
 
@@ -86,4 +119,4 @@ const translations = {
             </div>
         </div>
     </lesli-form>
-</template>    
+</template>
