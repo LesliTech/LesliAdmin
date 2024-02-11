@@ -1,4 +1,5 @@
-/*
+=begin
+
 Lesli
 
 Copyright (c) 2023, Lesli Technologies, S. A.
@@ -27,41 +28,21 @@ Building a better future, one line of code at a time.
 
 // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
-*/
+=end
 
+module LesliAdmin
+    class ProfilesController < ApplicationController
+        before_action :set_account, only: %i[update]
 
-// · 
-.user-information-card {
-    figure {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background-color: lesli-css-color(silver, 100);
-        border: 2px solid var(--lesli-color-primary, lesli-css-color(blue));
-    }
-    .alternative-avatar {
-        font-weight: 200;
-        font-size: 3rem;
-        color: var(--lesli-color-primary, lesli-css-color(blue));
-    }
-}
-
-form.information {
-    max-width: 80%;
-}
-
-// · roles management cards
-.roles-types {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: minmax(198px, auto);
-    gap: 20px;
-
-    &-item {
-        width: 100%;
-        height: 135px;
-        border-radius: 8px;
-        margin: 5px;
-    }
-}
+        # GET /profile
+        # GET /profile.json
+        def show
+            respond_to do |format|
+                format.html {}
+                format.json do
+                    respond_with_successful()
+                end
+            end
+        end
+    end
+end

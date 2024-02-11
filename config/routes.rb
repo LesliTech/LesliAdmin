@@ -48,4 +48,6 @@ LesliAdmin::Engine.routes.draw do
     end
 
     resource :account, only: [:show, :update]
+
+    resource :profile, only: [:show]
 end

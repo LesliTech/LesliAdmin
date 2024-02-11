@@ -2,6 +2,9 @@
 :es:
   lesli_admin:
     accounts:
+      column_phone_number: Teléfono
+      column_website: Sitio web
+      view_subtitle_social_media: Redes sociales
       view_title: Informacion de cuenta
       tab_general_information: Información General
       column_company_name: Nombre de Empresa
@@ -15,9 +18,6 @@
       column_country: País
       column_address: Dirección
       column_public_email: Email publico
-      column_phone_number: Teléfono
-      column_website: Sitio web
-      view_subtitle_social_media: Redes sociales
   lesli:
     shared:
       view_discussions: Discusiones
@@ -29,3 +29,10 @@
       button_save: Guardar
       button_delete: Eliminar
       button_edit: Editar
+      view_status_active: Activo
+      view_status_inactive: Inactivo
+      button_settings: Configuración
+      button_show: Ver
+    application:
+      navigation_logout: Cerrar sesión
+      navigation_my_profile: Mi perfil
