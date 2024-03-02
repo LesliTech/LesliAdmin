@@ -1,6 +1,5 @@
 <script setup>
 /*
-
 Lesli
 
 Copyright (c) 2023, Lesli Technologies, S. A.
@@ -33,9 +32,42 @@ Building a better future, one line of code at a time.
 
 
 // · 
-import LesliDashboard from "Lesli/vue/shared/dashboards/apps/show.vue"
+import { onMounted, inject, ref } from "vue"
 
+
+// · 
+const url = inject("url")
+const http = inject("http")
+
+
+// · 
+const lesliVersions = ref([])
+
+
+// · 
+onMounted(() => {
+    http.get(url.lesli("about")).then(result => {
+        lesliVersions.value = result
+    }).catch(error => {
+        console.log(error)
+    })
+})
 </script>
 <template>
-    <lesli-dashboard></lesli-dashboard>
+    <lesli-application-container>
+        <lesli-header title="Lesli system">
+        </lesli-header>
+        <div class="columns is-multiline is-variable is-4 dashboard-components">
+            <div class="column is-3" v-for="lesliVersion in lesliVersions">
+                <lesli-card>
+                    <h6 class="title is-6 mb-2">
+                        {{ lesliVersion.name }}
+                    </h6>
+                    <p class="p-0 m-0">version: {{ lesliVersion.version }}</p>
+                    <p class="p-0 m-0">buid: {{ lesliVersion.build }}</p>
+                    <p class="p-0 m-0">path: {{ lesliVersion.path }}</p>
+                </lesli-card>
+            </div>
+        </div>
+    </lesli-application-container>
 </template>

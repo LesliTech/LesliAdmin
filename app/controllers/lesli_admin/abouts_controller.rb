@@ -1,4 +1,5 @@
-/*
+=begin
+
 Lesli
 
 Copyright (c) 2023, Lesli Technologies, S. A.
@@ -27,7 +28,18 @@ Building a better future, one line of code at a time.
 
 // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
-*/
+=end
 
-body.lesli-admin-users, 
-body.lesli-admin-profile { }
+module LesliAdmin
+    class AboutsController < ApplicationController
+        before_action :set_account, only: %i[update]
+
+        # GET /profile
+        # GET /profile.json
+        def show
+            respond_to do |format|
+                format.html {}
+            end
+        end
+    end
+end

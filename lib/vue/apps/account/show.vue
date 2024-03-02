@@ -36,7 +36,7 @@ import { computed, onMounted } from "vue"
 
 
 // · import lesli stores
-import { useAccount } from "Lesli/stores/account"
+import { useAccount } from "Lesli/vue/shared/stores/account"
 
 
 // · import account components
@@ -51,11 +51,7 @@ const storeAccount = useAccount()
 
 // · translations
 const translations = {
-    admin: i18n.t("lesli_admin.accounts"),
-    core: {
-        onboardings: I18n.t("core.onboardings"),
-        accounts: I18n.t("core.accounts")
-    }
+    admin: i18n.t("lesli_admin.accounts")
 }
 
 
