@@ -1,4 +1,4 @@
-module LesliAudit
+module LesliAdmin
   class Dashboard::ComponentsController < ApplicationController
     before_action :set_dashboard_component, only: %i[ show edit update destroy ]
 

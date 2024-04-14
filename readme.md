@@ -32,15 +32,15 @@ end
 
 
 ### Documentation
-* [website](https://www.lesli.dev/admin/)
+* [website](https://www.lesli.dev/)
 * [database](./docs/database.md)
-* [documentation](https://www.lesli.dev/documentation/)
+* [documentation](https://www.lesli.dev/engines/admin/)
 
 
 ### Get in touch with Lesli
 
-* [Website: https://www.lesli.tech](https://www.lesli.tech)
 * [Email: hello@lesli.tech](hello@lesli.tech)
+* [Website: https://www.lesli.tech](https://www.lesli.tech)
 * [Twitter: @LesliTech](https://twitter.com/LesliTech)
 
 

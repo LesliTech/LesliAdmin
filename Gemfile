@@ -1,3 +1,6 @@
+# Lesli
+# For more information read the license file including with this software.
+
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 

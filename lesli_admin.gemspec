@@ -19,7 +19,7 @@ along with this program. If not, see http://www.gnu.org/licenses/.
 
 Lesli · Ruby on Rails SaaS Development Framework.
 
-Made with ♥ by https://www.lesli.tech
+Made with ♥ by LesliTech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
@@ -55,6 +55,7 @@ Gem::Specification.new do |spec|
         Dir["{app,config,db,lib}/**/*", "license", "Rakefile", "readme.md"]
     end
 
+    # Lesli core minimum requirements
     spec.required_ruby_version = ">= 2.7"
 
     spec.add_dependency "rails", "~> 7.0.6"

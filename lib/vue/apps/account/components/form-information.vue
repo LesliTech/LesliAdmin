@@ -56,7 +56,7 @@ const translations = {
         <div class="field">
             <label class="label">{{ translations.admin.column_company_name }}</label>
             <div class="control">
-                <input class="input" type="text" v-model="storeAccount.accountInfo.company_name" >
+                <input class="input" type="text" v-model="storeAccount.accountInfo.name" >
             </div>
         </div>
 

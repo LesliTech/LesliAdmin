@@ -2,8 +2,6 @@
 :en:
   lesli_admin:
     accounts:
-      column_phone_number: Phonenumber
-      column_website: Website
       view_subtitle_social_media: Social media
       view_title: Account information
       tab_general_information: General Information
@@ -18,6 +16,8 @@
       column_country: Country
       column_address: Address
       column_public_email: Public email
+      column_phone_number: Phonenumber
+      column_website: Website
   lesli:
     shared:
       view_discussions: Discussions
@@ -33,6 +33,7 @@
       view_status_inactive: Inactive
       button_settings: Settings
       button_show: Show
+      toolbar_search: Search...
     application:
       navigation_logout: Logout
       navigation_my_profile: My profile

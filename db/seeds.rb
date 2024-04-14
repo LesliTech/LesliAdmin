@@ -1,3 +1,5 @@
+=begin
+
 Lesli
 
 Copyright (c) 2023, Lesli Technologies, S. A.
@@ -26,3 +28,17 @@ Building a better future, one line of code at a time.
 
 // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
 // · 
+=end
+
+
+# IMPORTANT: 
+#   Seed files are only for development, if you need to create default resources 
+#   for production you must use the initializer method in the Engine account model
+L2.msg(
+    "LesliAudit", 
+    "Version: #{LesliAdmin::VERSION}", 
+    "Build: #{LesliAdmin::BUILD}",
+    "Env: #{Rails.env}")
+#load(LesliAdmin::Engine.root.join("db", "seed", "#{ Rails.env.downcase }.rb"))
+
+
