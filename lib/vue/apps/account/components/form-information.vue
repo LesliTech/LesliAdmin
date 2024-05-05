@@ -36,7 +36,7 @@ import { ref, reactive, onMounted, watch, computed } from "vue"
 
 
 // · import lesli stores
-import { useAccount } from "Lesli/vue/shared/stores/account"
+import { useAccount } from "LesliAdmin/vue/stores/account"
 
 
 // · implement stores
@@ -56,21 +56,21 @@ const translations = {
         <div class="field">
             <label class="label">{{ translations.admin.column_company_name }}</label>
             <div class="control">
-                <input class="input" type="text" v-model="storeAccount.accountInfo.name" >
+                <input class="input" type="text" v-model="storeAccount.account.name" >
             </div>
         </div>
 
         <div class="field">
             <label class="label">{{ translations.admin.column_company_name_legal }}</label>
             <div class="control">
-                <input class="input" type="text" v-model="storeAccount.accountInfo.company_name_legal">
+                <input class="input" type="text" v-model="storeAccount.account.detail_attributes.company_name_legal">
             </div>
         </div>
 
         <div class="field">
             <label class="label">{{ translations.admin.column_tag_line }}</label>
             <div class="control">
-                <input class="input" type="text" v-model="storeAccount.accountInfo.company_tagline">
+                <input class="input" type="text" v-model="storeAccount.account.detail_attributes.company_tagline">
             </div>
         </div>
 

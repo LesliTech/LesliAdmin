@@ -2,11 +2,11 @@
 :es:
   lesli_admin:
     accounts:
-      view_subtitle_social_media: Redes sociales
       view_title: Informacion de cuenta
       tab_general_information: Información General
       column_company_name: Nombre de Empresa
       column_company_name_legal: Razon social
+      view_subtitle_social_media: Redes sociales
       column_city: Ciudad
       column_tag_line: Slogan
       column_postal_code: Código postal

@@ -2,11 +2,11 @@
 :it:
   lesli_admin:
     accounts:
-      view_subtitle_social_media: ":lesli_admin.accounts.view_subtitle_social_media:"
       view_title: ":lesli_admin.accounts.view_title:"
       tab_general_information: ":lesli_admin.accounts.tab_general_information:"
       column_company_name: ":lesli_admin.accounts.column_company_name:"
       column_company_name_legal: ":lesli_admin.accounts.column_company_name_legal:"
+      view_subtitle_social_media: ":lesli_admin.accounts.view_subtitle_social_media:"
       column_city: ":lesli_admin.accounts.column_city:"
       column_tag_line: ":lesli_admin.accounts.column_tag_line:"
       column_postal_code: ":lesli_admin.accounts.column_postal_code:"

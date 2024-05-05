@@ -11,20 +11,28 @@
     </p>
 <hr/>
 
+<br />
+
+<div align="center">
+    <img 
+        style="width:100%;max-width:800px;border-radius:6px;" 
+        alt="Lesli screenshot" src="./docs/images/screenshot.png" />
+</div>
+
 ### Quick start
 
 ```shell
-# Add LesliAdmin engine
+# Add LesliAdmin engine gem
 bundle add lesli_admin
 ```
 
 ```shell
-# Setup database
+# Setup & initialize the database
 rake lesli:db:setup
 ```
 
 ```ruby
-# Load LesliAdmin
+# Load LesliAdmin engine
 Rails.application.routes.draw do
     mount LesliAdmin::Engine => "/admin"
 end

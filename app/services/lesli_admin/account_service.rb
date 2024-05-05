@@ -33,7 +33,22 @@ Building a better future, one line of code at a time.
 module LesliAdmin 
     class AccountService < Lesli::ApplicationLesliService
         def show 
-            current_user.account
+            account = Lesli::Account.left_joins(:detail)
+            .where(:id => current_user.account.id)
+            .select(:id, :email, :name, :company_name_legal, :company_tagline)
+            .first
+
+            {
+                id: account.id,
+                name: account.name,
+                email: account.email,
+                detail_attributes: {
+                    company_name_legal: account.company_name_legal,
+                    company_tagline: account.company_tagline
+                }
+            }
+
+            #current_user.account.joins(:detail)
         end 
     end 
 end

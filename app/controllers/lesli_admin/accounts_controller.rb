@@ -19,7 +19,7 @@ along with this program. If not, see http://www.gnu.org/licenses/.
 
 Lesli · Ruby on Rails SaaS Development Framework.
 
-Made with ♥ by https://www.lesli.tech
+Made with ♥ by LesliTech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
@@ -32,7 +32,7 @@ Building a better future, one line of code at a time.
 
 module LesliAdmin
     class AccountsController < ApplicationController
-        before_action :set_account, only: %i[update]
+        before_action :set_account, only: %i[show update]
 
         # GET /accounts/1
         # GET /accounts/1.json
@@ -40,7 +40,6 @@ module LesliAdmin
             respond_to do |format|
                 format.html {}
                 format.json do
-                    set_account
                     respond_with_successful(AccountService.new(current_user, query).show)
                 end
             end
@@ -99,24 +98,28 @@ module LesliAdmin
         def account_params
             params.require(:account).permit(
                 :id,
-                :company_name,
-                :company_name_legal,
-                :company_tagline,
-                :country,
-                :city,
-                :postal_code,
-                :address,
-                :region,
-                :website,
-                :phone_number_1,
-                :public_email,
-                :github,
-                :twitter,
-                :youtube,
-                :linkedin,
-                :facebook,
-                :status,
-                :users_id
+                :name,
+                detail_attributes: [
+                    :company_name_legal, 
+                    :company_tagline
+                ]
+                # :company_name_legal,
+                # :company_tagline,
+                # :country,
+                # :city,
+                # :postal_code,
+                # :address,
+                # :region,
+                # :website,
+                # :phone_number_1,
+                # :public_email,
+                # :github,
+                # :twitter,
+                # :youtube,
+                # :linkedin,
+                # :facebook,
+                # :status,
+                # :users_id
             )
         end
     end

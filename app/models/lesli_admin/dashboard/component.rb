@@ -32,12 +32,11 @@ Building a better future, one line of code at a time.
 
 module LesliAdmin
     class Dashboard::Component < ApplicationRecord
-
         belongs_to :dashboard, inverse_of: :components
 
-        def self.component_ids
-            ["version"]
-        end
+        # def self.component_ids
+        #     ["version"]
+        # end
         # components_ids: {
         #     list_new_tickets: "list_new_tickets",
         #     list_my_tickets: "list_my_tickets",

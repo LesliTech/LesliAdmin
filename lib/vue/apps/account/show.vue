@@ -36,7 +36,7 @@ import { computed, onMounted } from "vue"
 
 
 // · import lesli stores
-import { useAccount } from "Lesli/vue/shared/stores/account"
+import { useAccount } from "LesliAdmin/vue/stores/account"
 
 
 // · import account components
@@ -61,7 +61,7 @@ const companyInfo = computed(()=> storeOnboarding.companyInfo)
 
 // . 
 onMounted(() => {
-    storeAccount.fetch()
+    storeAccount.get()
 })
 
 </script>
@@ -69,18 +69,19 @@ onMounted(() => {
     <lesli-application-container>
         <lesli-header :title="translations.admin.view_title">
         </lesli-header>
-        <lesli-tabs v-model="tab">
+        <lesli-tabs>
             <lesli-tab-item :title="translations.admin.tab_general_information" icon="business">
                 <form-information></form-information>
             </lesli-tab-item>
-
+            <!--
             <lesli-tab-item :title="translations.admin.tab_address" icon="location_on">
                 <form-address></form-address>
             </lesli-tab-item>
-
+            
             <lesli-tab-item :title="translations.admin.tab_contact" icon="contact_page">
-                <form-contact></form-contact>
+            <form-contact></form-contact>
             </lesli-tab-item>
+            -->
         </lesli-tabs>
     </lesli-application-container>
 </template>
