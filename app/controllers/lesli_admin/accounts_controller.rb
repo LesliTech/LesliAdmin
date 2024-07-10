@@ -45,25 +45,25 @@ module LesliAdmin
             end
         end
     
-        # GET /accounts/new
-        def new
-        end
+        # # GET /accounts/new
+        # def new
+        # end
     
-        # GET /accounts/1/edit
-        def edit
-        end
+        # # GET /accounts/1/edit
+        # def edit
+        # end
     
-        # POST /accounts
-        # POST /accounts.json
-        def create
-            current_user.account.company_name = account_params[:company_name]
-            current_user.account.status = 'active'
-            current_user.account.save
-            if current_user.account.errors.any?
-                return respond_with_error(current_user.errors.full_messages.to_sentence)
-            end
-            respond_with_successful
-        end
+        # # POST /accounts
+        # # POST /accounts.json
+        # def create
+        #     current_user.account.company_name = account_params[:company_name]
+        #     current_user.account.status = 'active'
+        #     current_user.account.save
+        #     if current_user.account.errors.any?
+        #         return respond_with_error(current_user.errors.full_messages.to_sentence)
+        #     end
+        #     respond_with_successful
+        # end
     
         # PATCH/PUT /accounts/1
         # PATCH/PUT /accounts/1.json
@@ -77,15 +77,15 @@ module LesliAdmin
     
         # DELETE /accounts/1
         # DELETE /accounts/1.json
-        def destroy
-            return respond_with_not_found unless @account
+        # def destroy
+        #     return respond_with_not_found unless @account
     
-            @account.destroy
-            respond_to do |format|
-                format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }
-                format.json { head :no_content }
-            end
-        end
+        #     @account.destroy
+        #     respond_to do |format|
+        #         format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }
+        #         format.json { head :no_content }
+        #     end
+        # end
 
         private
 

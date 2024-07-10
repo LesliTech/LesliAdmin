@@ -2,7 +2,7 @@
 
 Lesli
 
-Copyright (c) 2023, Lesli Technologies, S. A.
+Copyright (c) 2024, Lesli Technologies, S. A.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ along with this program. If not, see http://www.gnu.org/licenses/.
 
 Lesli · Ruby on Rails SaaS Development Framework.
 
-Made with ♥ by https://www.lesli.tech
+Made with ♥ by LesliTech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
@@ -32,20 +32,7 @@ Building a better future, one line of code at a time.
 
 LesliAdmin::Engine.routes.draw do
 
-    # Dashboard alias
-    root to: "dashboards#show"
-
-    # Dashboard management
-    resource :dashboard, only: [:show]
-    resources :dashboards do
-        collection do
-            post "list" => :index
-            get :options
-        end
-        scope module: :dashboard do
-            resources :components
-        end
-    end
+    Lesli::Routing.mount_dashboard_for(LesliAdmin)
 
     resource :account, only: [:show, :update]
 

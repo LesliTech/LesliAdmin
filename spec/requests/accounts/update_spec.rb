@@ -35,15 +35,16 @@ Building a better future, one line of code at a time.
 require "rails_helper"
 require Lesli::Engine.root.join("spec/support/testers/request")
 
+# · 
 ENGINE_MOUNTED_PATH ||= LesliAdmin::Engine.routes.find_script_name({})
 
 
 # · 
-RSpec.describe "PUT:#{ENGINE_MOUNTED_PATH}/account.json", type: :request do
+RSpec.describe LesliAdmin::AccountsController, type: :request do
     include_context "request user authentication"
 
     it "is expected to update the account information as a whole" do
-        new_account_info = FactoryBot.attributes_for(:account)
+        new_account_info = FactoryBot.attributes_for(:lesli_account)
 
         put("#{ENGINE_MOUNTED_PATH}/account.json", params: { account: new_account_info })
 
@@ -52,28 +53,12 @@ RSpec.describe "PUT:#{ENGINE_MOUNTED_PATH}/account.json", type: :request do
 
         # custom expects
         expect(response_body["id"]).to eq(@current_user.account.id)
-        expect(response_body["company_name"]).to eq(new_account_info[:company_name])
-        expect(response_body["company_name_legal"]).to eq(new_account_info[:company_name_legal])
-        expect(response_body["company_tag_line"]).to eq(new_account_info[:company_tag_line])
-        # expect(response_body["country"]).to eq(new_account_info[:country])
-        expect(response_body["city"]).to eq(new_account_info[:city])
-        expect(response_body["postal_code"]).to eq(new_account_info[:postal_code])
-        expect(response_body["address"]).to eq(new_account_info[:address])
-        expect(response_body["region"]).to eq(new_account_info[:region])
-        expect(response_body["website"]).to eq(new_account_info[:website])
-        expect(response_body["phone_number_1"]).to eq(new_account_info[:phone_number_1])
-        expect(response_body["public_email"]).to eq(new_account_info[:public_email])
-        expect(response_body["github"]).to eq(new_account_info[:github])
-        expect(response_body["twitter"]).to eq(new_account_info[:twitter])
-        expect(response_body["youtube"]).to eq(new_account_info[:youtube])
-        expect(response_body["linkedin"]).to eq(new_account_info[:linkedin])
-        expect(response_body["facebook"]).to eq(new_account_info[:facebook])
-        expect(response_body["status"]).to eq(new_account_info[:status])
+        expect(response_body["name"]).to eq(new_account_info[:name])
     end
 
     it "is expected not to allow empty/null company name" do
 
-        put("#{ENGINE_MOUNTED_PATH}/account.json", params: { account: { company_name: "" }})
+        put("#{ENGINE_MOUNTED_PATH}/account.json", params: { account: { name: "" }})
 
         # shared examples
         expect_response_with_error
