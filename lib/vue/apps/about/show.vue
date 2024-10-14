@@ -33,11 +33,12 @@ Building a better future, one line of code at a time.
 
 // · 
 import { onMounted, inject, ref } from "vue"
-
+const dayjs = require("dayjs")
 
 // · 
 const url = inject("url")
 const http = inject("http")
+const date = inject("date")
 
 
 // · 
@@ -59,14 +60,14 @@ onMounted(() => {
         </lesli-header>
         <div class="columns is-multiline is-variable is-4 dashboard-components">
             <div class="column is-3" v-for="lesliVersion in lesliVersions">
-                <lesli-card>
+                <lesli-application-component>
                     <h6 class="title is-6 mb-2">
                         {{ lesliVersion.name }}
                     </h6>
                     <p class="p-0 m-0">version: {{ lesliVersion.version }}</p>
                     <p class="p-0 m-0">buid: {{ lesliVersion.build }}</p>
                     <p class="p-0 m-0">path: {{ lesliVersion.path }}</p>
-                </lesli-card>
+                </lesli-application-component>
             </div>
         </div>
     </lesli-application-container>
