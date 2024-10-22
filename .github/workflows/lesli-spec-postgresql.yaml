@@ -94,7 +94,7 @@ jobs:
       # Build the Lesli database
       - name: Copy configuration files
         run: |
-          cp ./engines/${{ github.event.repository.name }}/.github/tools/.rspec ./.rspec
+          cp ./engines/Lesli/.github/tools/.rspec ./.rspec
           cp ./engines/Lesli/.github/rails/database_postgresql.yml ./config/database.yml
           rm ./Gemfile.lock
 
@@ -104,6 +104,11 @@ jobs:
         with:
           ruby-version: 3.2.5
           bundler-cache: true
+
+      # Install core gems
+      - name: Install Ruby and gems
+        run: |
+          bundle add lesli_shield
 
       # Build the Lesli database
       - name: Set up PostgreSQL database 
