@@ -84,7 +84,6 @@ jobs:
           path: ./engines/Lesli
           repository: LesliTech/Lesli
 
-        
       # Clone engine repository
       - name: Checkout code
         if: github.event.repository.name != 'Lesli'
