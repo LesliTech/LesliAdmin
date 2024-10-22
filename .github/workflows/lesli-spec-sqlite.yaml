@@ -65,8 +65,15 @@ jobs:
           path: ./engines/Lesli
           repository: LesliTech/Lesli
 
+      # Clone engine repository
+      - name: Checkout code
+        if: github.event.repository.name != 'Lesli'
+        uses: actions/checkout@v3
+        with:
+          path: ./engines/${{ github.event.repository.name }}
+
       # Prepare configuration files
-      - name: Copy SQLite configuration files
+      - name: Copy configuration files
         run: |
           cp ./engines/Lesli/.github/tools/.rspec ./.rspec
           cp ./engines/Lesli/.github/rails/database_sqlite.yml ./config/database.yml
@@ -79,6 +86,11 @@ jobs:
           ruby-version: 3.2.5
           bundler-cache: true
 
+      # Install core gems
+      - name: Install Ruby and gems
+        run: |
+          bundle add lesli_shield
+
       # Build the Lesli database
       - name: Set up SQLite database
         run: RAILS_ENV=test bundle exec rake lesli:db:reset
@@ -88,3 +100,5 @@ jobs:
       # Run Rspec tests & collect coverage
       - name: Run Rails tests with SQLite
         run: bundle exec rspec spec
+        env:
+          COVERAGE: true
