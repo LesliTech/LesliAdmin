@@ -33,9 +33,7 @@ Building a better future, one line of code at a time.
 
 # · 
 require "rails_helper"
-require Lesli::Engine.root.join("spec/support/testers/request")
-
-ENGINE_MOUNTED_PATH ||= LesliAdmin::Engine.routes.find_script_name({})
+require Lesli::RSpec.testers_request 
 
 
 # · 
@@ -48,7 +46,7 @@ RSpec.describe LesliAdmin::AccountsController, type: :request do
 
     it "is expected to have a valid account" do
 
-        get("#{ENGINE_MOUNTED_PATH}/account.json")
+        get("#{LESLI_ADMIN_ENGINE_MOUNTED_PATH}/account.json")
 
         # shared examples
         expect_response_with_successful

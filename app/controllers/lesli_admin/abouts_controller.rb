@@ -32,7 +32,7 @@ Building a better future, one line of code at a time.
 
 module LesliAdmin
     class AboutsController < ApplicationController
-        before_action :set_account, only: %i[update]
+        before_action :set_account, only: %i[]
 
         # GET /profile
         # GET /profile.json

@@ -2,7 +2,7 @@
 
 Lesli
 
-Copyright (c) 2023, Lesli Technologies, S. A.
+Copyright (c) 2024, Lesli Technologies, S. A.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ along with this program. If not, see http://www.gnu.org/licenses/.
 
 Lesli · Ruby on Rails SaaS Development Framework.
 
-Made with ♥ by https://www.lesli.tech
+Made with ♥ by LesliTech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
@@ -33,10 +33,7 @@ Building a better future, one line of code at a time.
 
 # · 
 require "rails_helper"
-require Lesli::Engine.root.join("spec/support/testers/request")
-
-# · 
-ENGINE_MOUNTED_PATH ||= LesliAdmin::Engine.routes.find_script_name({})
+require Lesli::RSpec.testers_request 
 
 
 # · 
@@ -46,7 +43,7 @@ RSpec.describe LesliAdmin::AccountsController, type: :request do
     it "is expected to update the account information as a whole" do
         new_account_info = FactoryBot.attributes_for(:lesli_account)
 
-        put("#{ENGINE_MOUNTED_PATH}/account.json", params: { account: new_account_info })
+        put("#{LESLI_ADMIN_ENGINE_MOUNTED_PATH}/account.json", params: { account: new_account_info })
 
         # shared examples
         expect_response_with_successful
@@ -58,7 +55,7 @@ RSpec.describe LesliAdmin::AccountsController, type: :request do
 
     it "is expected not to allow empty/null company name" do
 
-        put("#{ENGINE_MOUNTED_PATH}/account.json", params: { account: { name: "" }})
+        put("#{LESLI_ADMIN_ENGINE_MOUNTED_PATH}/account.json", params: { account: { name: "" }})
 
         # shared examples
         expect_response_with_error
