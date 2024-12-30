@@ -61,12 +61,12 @@ onMounted(() => {
         <div class="columns is-multiline is-variable is-4 dashboard-components">
             <div class="column is-3" v-for="lesliVersion in lesliVersions">
                 <lesli-application-component>
-                    <h6 class="title is-6 mb-2">
-                        {{ lesliVersion.name }}
-                    </h6>
-                    <p class="p-0 m-0">version: {{ lesliVersion.version }}</p>
-                    <p class="p-0 m-0">buid: {{ lesliVersion.build }}</p>
-                    <p class="p-0 m-0">path: {{ lesliVersion.path }}</p>
+                    <h5 class="title is-size-5 mb-2">{{ lesliVersion.name }}</h5>
+                    <p class="p-0 m-0 has-text-grey has-text-weight-semibold">{{ lesliVersion.description }}</p>
+                    <hr class="my-2" />
+                    <p class="p-0 m-0 has-text-weight-medium">Version: {{ lesliVersion.version }}</p>
+                    <p class="p-0 m-0 has-text-weight-medium">Buid: {{ lesliVersion.build }}</p>
+                    <p class="p-0 m-0 has-text-weight-medium">Path: {{ lesliVersion.path }}</p>
                 </lesli-application-component>
             </div>
         </div>

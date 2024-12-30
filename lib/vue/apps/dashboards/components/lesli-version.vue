@@ -60,6 +60,7 @@ onMounted(() => {
 })
 </script>
 <template>
+    <!--
     <lesli-card>
         <h6 class="title is-6 mb-2">
             {{ lesliVersion.name }}
@@ -68,4 +69,5 @@ onMounted(() => {
         <p class="p-0 m-0">buid: {{ lesliVersion.build }}</p>
         <p class="p-0 m-0">path: {{ lesliVersion.path }}</p>
     </lesli-card>
+    -->
 </template>
