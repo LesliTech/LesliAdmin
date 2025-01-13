@@ -1,14 +1,20 @@
-# 01.01 CloudBabel Database
+# 01.01. LesliAdmin Database
 
 ```plaintext
-    00.01. accounts
-    05.01. dashboards
-    05.02. dashboard/components
-```
+    01.01.00.01. admin/account  
 
+    01.01.00.11. admin/actions 
+    01.01.00.12. admin/activities 
+    01.01.00.13. admin/discussions 
+    01.01.00.14. admin/subscribers 
+    01.01.00.15. admin/attachments 
 
-```mermaid
-erDiagram
-    lesli_admin_accounts ||--o{ lesli_admin_dashboards : has
-    lesli_admin_dashboards ||--o{ lesli_admin_dashboard_components : has
+    01.01.00.20. admin/dashboards
+    01.01.00.30. admin/catalogs 
+
+    01.01.10.00. admin/account_details
+    01.01.10.00. admin/account_settings
+    01.01.10.00. admin/account_locations
+    01.01.10.00. admin/account_currencies
+    01.01.10.00. admin/account_currency_exchange_rates
 ```
