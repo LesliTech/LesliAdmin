@@ -2,7 +2,7 @@
 
 Lesli
 
-Copyright (c) 2023, Lesli Technologies, S. A.
+Copyright (c) 2025, Lesli Technologies, S. A.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ along with this program. If not, see http://www.gnu.org/licenses/.
 
 Lesli · Ruby on Rails SaaS Development Framework.
 
-Made with ♥ by https://www.lesli.tech
+Made with ♥ by LesliTech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
@@ -34,11 +34,20 @@ module LesliAdmin
     class AboutsController < ApplicationController
         before_action :set_account, only: %i[]
 
-        # GET /profile
-        # GET /profile.json
         def show
             respond_to do |format|
-                format.html {}
+                format.html {
+                    @lesli_engines = Lesli::System.engines.map do |engine, engine_info|
+                        {
+                            :name => engine_info[:name],
+                            :code => engine_info[:code],
+                            :path => engine_info[:path],
+                            :build => engine_info[:build],
+                            :version => engine_info[:version],
+                            :description => engine_info[:description]
+                        }
+                    end
+                }
             end
         end
     end

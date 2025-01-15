@@ -1,20 +1,20 @@
+<p align="center">
+    <h1 align="center">LesliAdmin database.</h1>
+</p>
+
 # 01.01. LesliAdmin Database
 
 ```plaintext
-    01.01.00.01. admin/account  
+    01.01.00.01. lesli_admin_accounts 
 
-    01.01.00.11. admin/actions 
-    01.01.00.12. admin/activities 
-    01.01.00.13. admin/discussions 
-    01.01.00.14. admin/subscribers 
-    01.01.00.15. admin/attachments 
+    01.01.00.11. lesli_admin_actions 
+    01.01.00.12. lesli_admin_activities 
+    01.01.00.13. lesli_admin_discussions 
+    01.01.00.14. lesli_admin_subscribers 
+    01.01.00.15. lesli_admin_attachments 
 
-    01.01.00.20. admin/dashboards
-    01.01.00.30. admin/catalogs 
+    01.01.00.20. lesli_admin_catalogs 
+    01.01.00.30. lesli_admin_dashboards 
 
-    01.01.10.00. admin/account_details
-    01.01.10.00. admin/account_settings
-    01.01.10.00. admin/account_locations
-    01.01.10.00. admin/account_currencies
-    01.01.10.00. admin/account_currency_exchange_rates
+    01.01.10.11. lesli_admin_{{features}}
 ```
