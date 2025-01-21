@@ -1,5 +1,9 @@
 ---
 :en:
+  lesli_admin:
+    accounts:
+      show:
+        column_company_name: "ldonis"
   lesli:
     shared:
       view_discussions: Discussions

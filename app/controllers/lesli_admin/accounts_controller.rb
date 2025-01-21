@@ -36,7 +36,9 @@ module LesliAdmin
 
         def show
             respond_to do |format|
-                format.html {}
+                format.html do 
+                    @account = AccountService.new(current_user, query).show
+                end
                 format.json do
                     respond_with_successful(AccountService.new(current_user, query).show)
                 end
@@ -64,6 +66,7 @@ module LesliAdmin
             params.require(:account).permit(
                 :id,
                 :name,
+                :email,
                 detail_attributes: [
                     :company_name_legal, 
                     :company_tagline

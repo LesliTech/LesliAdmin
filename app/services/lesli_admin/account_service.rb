@@ -50,6 +50,7 @@ module LesliAdmin
             }
 
             #current_user.account.joins(:detail)
+            return account
         end 
     end 
 end

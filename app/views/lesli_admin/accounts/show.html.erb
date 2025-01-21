@@ -30,41 +30,16 @@ Building a better future, one line of code at a time.
 // · 
 %>
 
-<%= render LesliView::Layout::Container.new("admin-accounts") do %>
-    <%= render LesliView::Element::Header.new("Account") %>
+<%= render(LesliView::Layout::Container.new("")) do %>
 
-    <%= render(LesliView::Element::Form.new) do %>
-        <div class="field">
-            <label class="label">{{ translations.admin.column_company_name }}</label>
-            <div class="control">
-                <input class="input" type="text" v-model="storeAccount.account.name" >
-            </div>
-        </div>
+    <%= render(LesliView::Components::Header.new("Account information")) %>
 
-        <div class="field">
-            <label class="label">{{ translations.admin.column_company_name_legal }}</label>
-            <div class="control">
-                <input class="input" type="text" v-model="storeAccount.account.detail_attributes.company_name_legal">
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label">{{ translations.admin.column_tag_line }}</label>
-            <div class="control">
-                <input class="input" type="text" v-model="storeAccount.account.detail_attributes.company_tagline">
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="field-body">
-                <div class="field">
-                    <div class="control">
-                        <lesli-button icon="save">
-                            {{ translations.shared.button_save }}
-                        </lesli-button>                 
-                    </div>
-                </div>
-            </div>
-        </div>
+    <%= render LesliView::Forms::Builder.new(model: @account, url: account_path(@account), method: :put) do |builder| %>
+        <%#= builder.form.label :name %>
+        <%#= builder.form.text_field :name %>
+        <%= builder.form.field(:name, label: "Company name") %>
+        <%= builder.form.field(:email) %>
+        <%= builder.form.submit("Save Account") %>
     <% end %>
 <% end %>
+

@@ -31,7 +31,7 @@ Building a better future, one line of code at a time.
 %>
 
 <%= render LesliView::Layout::Container.new("admin-accounts") do %>
-    <%= render LesliView::Element::Header.new("About") %>
+    <%= render LesliView::Components::Header.new("About") %>
 
     <div class="columns is-multiline is-variable is-4 dashboard-components">
         <% @lesli_engines.each do |engine| %>
