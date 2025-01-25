@@ -3,33 +3,14 @@
 
     <%= render(LesliView::Components::Header.new("Account information")) %>
 
-    <%= render LesliView::Elements::Tabs.new(active_tab: "tab1") do |tabs| %>
+    <%= render LesliView::Elements::Tabs.new(active_tab: 1) do |tabs| %>
 
         <% tabs.with_tab(title: "General Information", icon: "business") do  %>
-            <%= form_with(model: @account, builder: LesliView::Forms::Helper) do |form| %>
-                <%= form.label :name %>
-                <%= form.text_field :name %>
-                <%= form.submit "Save Account" %>
+            <%= form_with(model: @account, builder: LesliView::Forms::Builder) do |form| %>
+                <%= form.field(:name, label: "Company name")%>
+                <%= form.field(:email) %>
+                <%= form.button "Save Account" %>
             <% end %>
-        <% end %>
-
-        <% tabs.with_tab(title: "Full field", icon: "business") do  %>
-            <%= form_with(model: @account, builder: LesliView::Forms::Helper) do |form| %>
-                <%= form.field :name, label: "Company name" %>
-                <%= form.submit "Save Account" %>
-            <% end %>
-        <% end %>
-
-        <% tabs.with_tab(title: "Save", icon: "save") do %>
-            <%= render LesliView::Forms::Builder.new(model: @account, url: account_path(@account), method: :put) do |builder| %>
-                <%= builder.form.field(:name, label: "Company name") %>
-                <%= builder.form.field(:email) %>
-                <%= builder.form.submit("Save account") %>
-            <% end %>
-        <% end %>
-
-        <% tabs.with_tab(icon: "refresh") do %>
-            <p>Hola 3</p>
         <% end %>
     <% end %>
 <% end %>
