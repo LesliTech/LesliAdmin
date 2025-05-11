@@ -30,6 +30,4 @@ Building a better future, one line of code at a time.
 // · 
 %>
 
-<%= render LesliView::Layout::Container.new("admin-accounts") do %>
-    <%= render LesliView::Components::Header.new("Dashboard") %>
-<% end %>
+<%= render("/lesli/shared/dashboards/show") %>

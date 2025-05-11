@@ -3,13 +3,15 @@
 
     <%= render(LesliView::Components::Header.new("Account information")) %>
 
-    <%= render LesliView::Elements::Tabs.new(active_tab: 1) do |tabs| %>
+    <%= render LesliView::Components::Tabs.new do |tabs| %>
 
         <% tabs.with_tab(title: "General Information", icon: "business") do  %>
             <%= form_with(model: @account, builder: LesliView::Forms::Builder) do |form| %>
-                <%= form.field(:name, label: "Company name")%>
-                <%= form.field(:email) %>
-                <%= form.button "Save Account" %>
+                <%= form.fieldset do %>
+                    <%= form.field_control(:name, label: "Company name")%>
+                    <%= form.field_control(:email) %>
+                    <%= form.field_control_submit %>
+                <% end %>
             <% end %>
         <% end %>
     <% end %>
