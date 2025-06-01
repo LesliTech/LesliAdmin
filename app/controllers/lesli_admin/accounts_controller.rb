@@ -46,10 +46,12 @@ module LesliAdmin
         end
     
         def update
+
+            # check saved
             if @account.update(account_params)
-                respond_with_successful(@account)
-            else
-                respond_with_error(@account)
+                success("Account updated successfully!")
+            else 
+                #respond_with_error(@account.errors)
             end
         end
 
