@@ -1,5 +1,5 @@
 
-<%= render(LesliView::Layout::Container.new("")) do %>
+<%= render(LesliView::Layout::Container.new("test")) do %>
 
     <%= render(LesliView::Components::Header.new("Account information")) %>
 
@@ -9,7 +9,7 @@
             <%= form_with(model: @account, builder: LesliView::Forms::Builder) do |form| %>
                 <%= form.fieldset do %>
                     <%= form.field_control(:name, label: "Company name")%>
-                    <%= form.field_control(:email) %>
+                    <%= form.field_control(:email, label: "Iva por pagar") %>
                     <%= form.field_control_submit %>
                 <% end %>
             <% end %>
