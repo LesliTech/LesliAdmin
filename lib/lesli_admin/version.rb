@@ -1,4 +1,4 @@
 module LesliAdmin
-  VERSION = "0.6.1"
-  BUILD = "1735524814"
+  VERSION = "1.0.0"
+  BUILD = "1751336586"
 end
