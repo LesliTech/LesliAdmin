@@ -56,27 +56,27 @@ Building a better future, one line of code at a time.
 <%= render LesliView::Layout::Container.new("admin-accounts") do %>
     <%= render LesliView::Components::Header.new("About") %>
 
-    <div x-data="engineManager()">
-        <div class="columns is-multiline is-variable is-4 dashboard-components">
-            <% @lesli_engines.each do |engine| %>
-                <% next if engine[:code] == 'root' %>
-                <div class="column is-3" v-for="lesliVersion in lesliVersions">
-                    <div class="box">
-                        <h5 class="title is-size-5 mb-2"><%= engine[:name] %></h5>
-                        <p class="p-0 m-0 has-text-grey-dark"><%= engine[:description] %></p>
-                        <hr class="my-2" />
-                        <p class="p-0 m-0 has-text-grey">Version: <%= engine[:version] %></p>
-                        <p class="p-0 m-0 has-text-grey">Buid: <%= engine[:build] %></p>
-                        <p class="p-0 m-0 has-text-grey">Path: <%= engine[:path] %></p>
-                        <hr class="my-2" />
-                        <button 
-                            @click="toggleEngine('<%= engine[:path].gsub("/","") %>')" 
-                            :class="data.engines.includes('<%= engine[:path].gsub("/","") %>') ? 'button is-small is-info' : 'button is-small is-danger'" 
-                            x-text="data.engines.includes('<%= engine[:path].gsub("/","") %>') ? 'Activar módulo' : 'Desactivar módulo'">
-                        </button>
-                    </div>
-                </div>
-            <% end %>
-        </div>
+    <div class="box p-6" x-data="engineManager()">
+        <% @lesli_engines.each do |engine| %>
+            <% next if engine[:code] == 'root' %>
+            <div class="px-4" v-for="lesliVersion in lesliVersions">
+                <h5 class="title is-size-5 mb-0"><%= engine[:name] %></h5>
+                <p class="p-0 m-0 has-text-grey-dark"><%= engine[:description] %></p>
+                <hr class="my-2" />
+                <p class="p-0 m-0 has-text-grey">Version: <%= engine[:version] %></p>
+                <p class="p-0 m-0 has-text-grey">Buid: <%= engine[:build] %></p>
+                <p class="p-0 m-0 has-text-grey">Path: <%= engine[:path] %></p>
+                <p class="p-0 m-0 has-text-grey">
+                    <small><%= LesliDate::Formatter.new(Time.at(engine[:build].to_i)).date_time %></small>
+                </p>
+                <hr class="mt-2 mb-4" />
+                <button 
+                    @click="toggleEngine('<%= engine[:path].gsub("/","") %>')" 
+                    :class="data.engines.includes('<%= engine[:path].gsub("/","") %>') ? 'button is-small is-info' : 'button is-small is-danger'" 
+                    x-text="data.engines.includes('<%= engine[:path].gsub("/","") %>') ? 'Activar módulo' : 'Desactivar módulo'">
+                </button>
+            </div>
+            <hr class="my-6 has-background-grey" />
+        <% end %>
     </div>
 <% end %>
