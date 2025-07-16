@@ -38,14 +38,8 @@ module LesliAdmin
             respond_to do |format|
                 format.html {
                     @lesli_engines = LesliSystem.engines.map do |engine, engine_info|
-                        {
-                            :name => engine_info[:name],
-                            :code => engine_info[:code],
-                            :path => engine_info[:path],
-                            :build => engine_info[:build],
-                            :version => engine_info[:version],
-                            :description => engine_info[:description]
-                        }
+                        engine_info[:description] = engine_info[:description]&.sub("for the Lesli Framework","")&.sub("for The Lesli Framework","")
+                        engine_info
                     end
                 }
             end

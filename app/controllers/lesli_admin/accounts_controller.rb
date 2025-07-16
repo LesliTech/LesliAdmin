@@ -35,12 +35,14 @@ module LesliAdmin
         before_action :set_account, only: %i[show update]
 
         def show
+            @account = AccountService.new(current_user, query).show
             respond_to do |format|
-                format.html do 
-                    @account = AccountService.new(current_user, query).show
+                format.html
+                format.turbo_stream do 
+                    render(turbo_stream: turbo_stream.replace("application-lesli-notifications", partial: "lesli/partials/application-lesli-notifications"))
                 end
                 format.json do
-                    respond_with_successful(AccountService.new(current_user, query).show)
+                    respond_with_successful(@account)
                 end
             end
         end

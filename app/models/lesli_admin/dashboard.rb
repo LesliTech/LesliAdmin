@@ -35,24 +35,6 @@ module LesliAdmin
         self.table_name = "lesli_admin_dashboards"
         belongs_to :account
 
-        has_many :components, inverse_of: :dashboard, autosave: true, dependent: :destroy
-        accepts_nested_attributes_for :components, allow_destroy: true
-
-        def self.initialize_account(account)
-            self.create_with(
-                default: true,
-                main: false,
-                components_attributes: [{
-                    name: "Lesli version",
-                    component_id: "admin-lesli-version",
-                    layout: 3,
-                    query_configuration: {},
-                    custom_configuration: {}
-                }]
-            ).find_or_create_by!(
-                account: account,
-                name: "Admin Default Dashboard"
-            )
-        end
+        COMPONENTS = %i[installed_engines]
     end
 end

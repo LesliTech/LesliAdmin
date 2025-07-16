@@ -39,4 +39,6 @@ LesliAdmin::Engine.routes.draw do
     resource :profile, only: [:show]
 
     resource :about, only: [:show]
+
+    resource :settings, only: [:show, :update]
 end

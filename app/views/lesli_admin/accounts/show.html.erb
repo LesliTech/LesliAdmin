@@ -4,7 +4,6 @@
     <%= render(LesliView::Components::Header.new("Account information")) %>
 
     <%= render LesliView::Components::Tabs.new do |tabs| %>
-
         <% tabs.with_tab(title: "General Information", icon: "business") do  %>
             <%= form_with(model: @account, builder: LesliView::Forms::Builder) do |form| %>
                 <%= form.fieldset do %>

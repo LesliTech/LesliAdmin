@@ -1,0 +1,11 @@
+
+<%= render(LesliView::Layout::Container.new("settings")) do %>
+
+    <%= render(LesliView::Components::Header.new("Settings")) %>
+
+    <%= render LesliView::Components::Tabs.new(:vertical => true) do |tabs| %>
+        <% tabs.with_tab(title: "About", icon: "star") do  %>
+            <%= render(LesliView::Partials::EngineSpec.new(LesliSystem.engine(@lesli[:engine_name]))) %>
+        <% end %>
+    <% end %>
+<% end %>
