@@ -1,0 +1,60 @@
+<script>
+    function engineManager() {
+        return {
+            data: { engines: [] },
+
+            init() {
+                const stored = localStorage.getItem('engineData')
+                this.data = stored ? JSON.parse(stored) : { engines: [] }
+            },
+
+            toggleEngine(engine) {
+                const index = this.data.engines.indexOf(engine)
+                if (index === -1) {
+                    this.data.engines.push(engine)
+                } else {
+                    this.data.engines.splice(index, 1)
+                }
+                localStorage.setItem('engineData', JSON.stringify(this.data))
+            }
+        }
+    }
+</script>
+<style>
+.fixed-grid .partial-engine-spec ul {
+    display: flex;
+}
+.fixed-grid .partial-engine-spec ul li {
+    margin: 0 1rem 0 0;
+    font-size: 13px;
+}
+.fixed-grid .partial-engine-spec ul li:last-child {
+    display: none;
+}
+.fixed-grid .partial-engine-spec .material-icons {
+    font-size: 16px;
+}
+</style>
+<%
+@lesli_engines = LesliSystem.engines.map do |engine, engine_info|
+    engine_info[:description] = engine_info[:description]&.sub("for the Lesli Framework","")&.sub("for The Lesli Framework","")
+    engine_info
+end
+%>
+
+<div class="fixed-grid">
+<div class="grid" x-data="engineManager()">
+    <% @lesli_engines.each do |engine| %>
+        <div class="cell">
+            <div class="box">
+                <%= render(LesliView::Partials::EngineSpec.new(engine)) %>
+                <button 
+                    @click="toggleEngine('<%= engine[:path].gsub("/","") %>')" 
+                    :class="data.engines.includes('<%= engine[:path].gsub("/","") %>') ? 'button is-small is-info' : 'button is-small is-danger has-text-white'" 
+                    x-text="data.engines.includes('<%= engine[:path].gsub("/","") %>') ? 'Activar módulo' : 'Desactivar módulo'">
+                </button>
+            </div>
+        </div>
+    <% end %>
+</div>
+</div>
