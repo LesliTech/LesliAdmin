@@ -4,10 +4,10 @@
     <%= render(LesliView::Components::Header.new("Settings")) %>
 
     <%= render LesliView::Components::Tabs.new(:vertical => true) do |tabs| %>
-        <% tabs.with_tab(title: "Modules", symbol: "brick") do  %>
+        <% tabs.with_tab(title: "Modules", icon: "brick") do  %>
             <%= render("modules") %>
         <% end %>
-        <% tabs.with_tab(title: "About", symbol: "kid_star") do  %>
+        <% tabs.with_tab(title: "About", icon: "kid_star") do  %>
             <%= render(LesliView::Partials::EngineSpec.new(LesliSystem.engine(@lesli[:engine_name]))) %>
         <% end %>
     <% end %>
