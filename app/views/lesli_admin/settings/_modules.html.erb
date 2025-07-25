@@ -37,7 +37,7 @@
 </style>
 <%
 @lesli_engines = LesliSystem.engines.map do |engine, engine_info|
-    engine_info[:description] = engine_info[:description]&.sub("for the Lesli Framework","")&.sub("for The Lesli Framework","")
+    engine_info[:summary] = engine_info[:summary]&.sub("for the Lesli Framework","")&.sub("for The Lesli Framework","")
     engine_info
 end
 %>
@@ -45,6 +45,8 @@ end
 <div class="fixed-grid">
 <div class="grid" x-data="engineManager()">
     <% @lesli_engines.each do |engine| %>
+        <% pp engine %>
+        <% next if engine[:name] == "Root" %>
         <div class="cell">
             <div class="box">
                 <%= render(LesliView::Partials::EngineSpec.new(engine)) %>
