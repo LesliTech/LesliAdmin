@@ -31,8 +31,8 @@
 .fixed-grid .partial-engine-spec ul li:last-child {
     display: none;
 }
-.fixed-grid .partial-engine-spec .material-icons {
-    font-size: 16px;
+.fixed-grid .partial-engine-spec .material-symbols {
+    font-size: 0px;
 }
 </style>
 <%
@@ -45,7 +45,6 @@ end
 <div class="fixed-grid">
 <div class="grid" x-data="engineManager()">
     <% @lesli_engines.each do |engine| %>
-        <% pp engine %>
         <% next if engine[:name] == "Root" %>
         <div class="cell">
             <div class="box">

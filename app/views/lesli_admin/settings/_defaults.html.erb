@@ -1,0 +1,61 @@
+<% 
+    sections = {
+        "Instance Info" => {
+            demo: Lesli.config.demo,
+            instance: Lesli.config.instance
+        },
+        "Company Info" => Lesli.config.company,
+        "Available Locales" => Lesli.config.locales,
+        "Datetime Settings" => Lesli.config.datetime,
+        "Security Settings" => Lesli.config.security,
+        "Theme" => Lesli.config.theme,
+        "Layout" => Lesli.config.layout,
+        "Mailer" => Lesli.config.mailer,
+        "Paths" => {
+            path_after_login: Lesli.config.path_after_login
+        }
+    } 
+%>
+<section class="section pt-0">
+    <h4 class="title is-size-4 mb-4">Lesli Configuration</h4>
+
+    <% sections.each do |title, config| %>
+        <div class="box">
+            <h5 class="subtitle is-size-6 has-text-weight-semibold mb-4"><%= title %></h5>
+            <div class="columns is-multiline is-mobile">
+                <% 
+                    grid = title.underscore
+                    grid = "is-one-quarter" if title.underscore == "instance info" 
+                    grid = "is-half" if title.underscore == "datetime settings"
+                    grid = "is-one-quarter" if title.underscore == "security settings"
+                    grid = "is-one-third" if title.underscore == "theme"
+
+                %>
+                <% config.each do |key, value| %>
+                    <div class="column <%= grid %>">
+                        <p class="has-text-weight-semibold"><%= key.to_s.humanize %></p>
+                        <div>
+                            <% if value.is_a?(Hash) %>
+                                <ul class="pl-4">
+                                    <% value.each do |key, value| %>
+                                        <li>
+                                            <strong><%= key.to_s.humanize %>:</strong>
+                                            <code><%= value %></code>
+                                        </li>
+                                    <% end %>
+                                </ul>
+
+                            <% elsif value == true %>
+                                <span class="tag is-success has-text-white">Enabled</span>
+                            <% elsif value == false %>
+                                <span class="tag is-danger has-text-white">Disabled</span>
+                            <% else %>
+                                <code class="is-size-7"><%= value.to_s %></code>
+                            <% end %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+</section>

@@ -4,6 +4,9 @@
     <%= render(LesliView::Components::Header.new("Settings")) %>
 
     <%= render LesliView::Components::Tabs.new(:vertical => true) do |tabs| %>
+        <% tabs.with_tab(title: "Default", icon: "component_exchange") do  %>
+            <%= render("defaults") %>
+        <% end %>
         <% tabs.with_tab(title: "Modules", icon: "brick") do  %>
             <%= render("modules") %>
         <% end %>
