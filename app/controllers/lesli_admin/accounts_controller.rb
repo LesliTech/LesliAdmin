@@ -38,9 +38,7 @@ module LesliAdmin
             @account = AccountService.new(current_user, query).show
             respond_to do |format|
                 format.html
-                format.turbo_stream do 
-                    render(turbo_stream: turbo_stream.replace("application-lesli-notifications", partial: "lesli/partials/application-lesli-notifications"))
-                end
+                format.turbo_stream
                 format.json do
                     respond_with_successful(@account)
                 end
@@ -51,7 +49,9 @@ module LesliAdmin
 
             # check saved
             if @account.update(account_params)
-                success("Account updated successfully!")
+                respond_with_stream(
+                    stream_notification_success('Account updated')
+                )
             else 
                 #respond_with_error(@account.errors)
             end
