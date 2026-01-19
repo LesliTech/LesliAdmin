@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
 
-Lesli · Ruby on Rails SaaS Development Framework.
+Lesli · Ruby on Rails Development Platform.
 
 Made with ♥ by https://www.lesli.tech
 Building a better future, one line of code at a time.
@@ -27,23 +27,22 @@ Building a better future, one line of code at a time.
 @license  GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
 
 // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
-// · 
+// ·
 =end
+class CreateLesliAccountCurrencies < ActiveRecord::Migration[6.1]
+    def change
+        create_table :lesli_account_currencies do |t|
+            t.string        :name
+            t.string        :symbol
+            t.string        :country_alpha_3
 
-module LesliAdmin
-    class Dashboard::Component < ApplicationRecord
-        belongs_to :dashboard, inverse_of: :components
+            # Acts as paranoid
+            t.datetime :deleted_at, index: true
 
-        # def self.component_ids
-        #     ["version"]
-        # end
-        # components_ids: {
-        #     list_new_tickets: "list_new_tickets",
-        #     list_my_tickets: "list_my_tickets",
-        #     list_unassigned_tickets: "list_unassigned_tickets",
-        #     chart_tickets_by_type: "chart_tickets_by_type",
-        #     chart_tickets_by_category: "chart_tickets_by_category",
-        #     hours_worked: "hours_worked"
-        # }
+            t.timestamps
+        end
+
+        add_reference(:lesli_account_currencies, :user, foreign_key: { to_table: :lesli_users })
+        add_reference(:lesli_account_currencies, :account, foreign_key: { to_table: :lesli_accounts })
     end
 end

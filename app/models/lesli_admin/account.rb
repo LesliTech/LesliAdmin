@@ -38,7 +38,6 @@ module LesliAdmin
         after_create :initialize_account
 
         def initialize_account
-            Dashboard.initialize_account(self)
         end
     end
 end

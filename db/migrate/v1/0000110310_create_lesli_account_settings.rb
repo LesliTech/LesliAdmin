@@ -19,7 +19,7 @@ along with this program. If not, see http://www.gnu.org/licenses/.
 
 Lesli · Ruby on Rails SaaS Development Framework.
 
-Made with ♥ by https://www.lesli.tech
+Made with ♥ by LesliTech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
@@ -30,8 +30,8 @@ Building a better future, one line of code at a time.
 // · 
 =end
 
-class CreateLesliAdminDashboards < ActiveRecord::Migration[6.1]
+class CreateLesliAccountSettings < ActiveRecord::Migration[5.2]
     def change
-        create_table_lesli_shared_dashboards_10(:lesli_admin)
+        create_table_lesli_shared_settings_10(:lesli)
     end
 end

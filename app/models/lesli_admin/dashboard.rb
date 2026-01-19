@@ -32,9 +32,6 @@ Building a better future, one line of code at a time.
 
 module LesliAdmin
     class Dashboard < Lesli::Shared::Dashboard
-        self.table_name = "lesli_admin_dashboards"
-        belongs_to :account
-
         COMPONENTS = %i[installed_engines]
     end
 end
