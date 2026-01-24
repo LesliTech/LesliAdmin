@@ -2,7 +2,7 @@
 
 Lesli
 
-Copyright (c) 2023, Lesli Technologies, S. A.
+Copyright (c) 2026, Lesli Technologies, S. A.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,8 +30,19 @@ Building a better future, one line of code at a time.
 // · 
 =end
 
-class CreateLesliAccountSettings < ActiveRecord::Migration[5.2]
+class CreateLesliAdminAccountCurrencies < ActiveRecord::Migration[6.1]
     def change
-        create_table_lesli_shared_settings_10(:lesli)
+        create_table :lesli_admin_account_currencies do |t|
+            t.string :name
+            t.string :symbol
+            t.string :country_alpha_3
+
+            # Acts as paranoid
+            t.datetime :deleted_at, index: true
+            t.timestamps
+        end
+
+        add_reference(:lesli_admin_account_currencies, :user, foreign_key: { to_table: :lesli_users })
+        add_reference(:lesli_admin_account_currencies, :account, foreign_key: { to_table: :lesli_admin_accounts })
     end
 end

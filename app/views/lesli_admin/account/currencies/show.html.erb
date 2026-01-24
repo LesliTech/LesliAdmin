@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @account_currency %>
+
+<div>
+  <%= link_to "Edit this currency", edit_account_currency_path(@account_currency) %> |
+  <%= link_to "Back to currencies", account_currencies_path %>
+
+  <%= button_to "Destroy this currency", @account_currency, method: :delete %>
+</div>

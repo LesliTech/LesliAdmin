@@ -31,6 +31,12 @@ Building a better future, one line of code at a time.
 =end
 
 LesliAdmin::Engine.routes.draw do
+  namespace :account do
+    resources :currencies
+    resources :locations
+    resources :settings
+    resources :details
+  end
 
     Lesli::Router.mount_dashboard_for(LesliAdmin)
 

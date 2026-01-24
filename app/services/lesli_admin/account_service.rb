@@ -33,9 +33,9 @@ Building a better future, one line of code at a time.
 module LesliAdmin 
     class AccountService < Lesli::ApplicationLesliService
         def show 
-            account = Lesli::Account.left_joins(:detail)
+            account = Lesli::Account #.left_joins(:detail)
             .where(:id => current_user.account.id)
-            .select(:id, :email, :name, :status, :company_name_legal, :company_tagline)
+            .select(:id, :email, :name, :status) #, :company_name_legal, :company_tagline)
             .first
 
             {
@@ -43,10 +43,10 @@ module LesliAdmin
                 name: account.name,
                 email: account.email,
                 status: account.status,
-                detail_attributes: {
-                    company_name_legal: account.company_name_legal,
-                    company_tagline: account.company_tagline
-                }
+                # detail_attributes: {
+                #     company_name_legal: account.company_name_legal,
+                #     company_tagline: account.company_tagline
+                # }
             }
 
             #current_user.account.joins(:detail)

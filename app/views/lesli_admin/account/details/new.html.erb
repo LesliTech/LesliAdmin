@@ -1,0 +1,11 @@
+<% content_for :title, "New detail" %>
+
+<h1>New detail</h1>
+
+<%= render "form", account_detail: @account_detail %>
+
+<br>
+
+<div>
+  <%= link_to "Back to details", account_details_path %>
+</div>

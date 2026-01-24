@@ -1,0 +1,17 @@
+<%= form_with(model: account_detail) do |form| %>
+  <% if account_detail.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(account_detail.errors.count, "error") %> prohibited this account_detail from being saved:</h2>
+
+      <ul>
+        <% account_detail.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

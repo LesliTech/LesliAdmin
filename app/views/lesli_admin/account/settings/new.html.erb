@@ -1,0 +1,11 @@
+<% content_for :title, "New setting" %>
+
+<h1>New setting</h1>
+
+<%= render "form", account_setting: @account_setting %>
+
+<br>
+
+<div>
+  <%= link_to "Back to settings", account_settings_path %>
+</div>

@@ -2,7 +2,7 @@
 
 Lesli
 
-Copyright (c) 2023, Lesli Technologies, S. A.
+Copyright (c) 2026, Lesli Technologies, S. A.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,9 +17,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
 
-Lesli · Ruby on Rails Development Platform.
+Lesli · Ruby on Rails SaaS Development Framework.
 
-Made with ♥ by https://www.lesli.tech
+Made with ♥ by LesliTech
 Building a better future, one line of code at a time.
 
 @contact  hello@lesli.tech
@@ -27,22 +27,18 @@ Building a better future, one line of code at a time.
 @license  GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
 
 // · ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~     ~·~
-// ·
+// · 
 =end
-class CreateLesliAccountCurrencies < ActiveRecord::Migration[6.1]
+
+class CreateLesliAdminAccountSettings < ActiveRecord::Migration[5.2]
     def change
-        create_table :lesli_account_currencies do |t|
-            t.string        :name
-            t.string        :symbol
-            t.string        :country_alpha_3
-
-            # Acts as paranoid
-            t.datetime :deleted_at, index: true
-
+        create_table :lesli_admin_account_settings do |t|
+            t.string :name
+            t.string :value
             t.timestamps
         end
 
-        add_reference(:lesli_account_currencies, :user, foreign_key: { to_table: :lesli_users })
-        add_reference(:lesli_account_currencies, :account, foreign_key: { to_table: :lesli_accounts })
+        add_reference(:lesli_admin_account_settings, :user, foreign_key: { to_table: :lesli_users }, index: true)
+        add_reference(:lesli_admin_account_settings, :account, null: false, foreign_key: { to_table: :lesli_admin_accounts }, index: true)
     end
 end

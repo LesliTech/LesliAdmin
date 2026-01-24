@@ -1,0 +1,12 @@
+<% content_for :title, "Editing location" %>
+
+<h1>Editing location</h1>
+
+<%= render "form", account_location: @account_location %>
+
+<br>
+
+<div>
+  <%= link_to "Show this location", @account_location %> |
+  <%= link_to "Back to locations", account_locations_path %>
+</div>
