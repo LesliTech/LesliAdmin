@@ -5,7 +5,7 @@
 
     <%= render LesliView::Components::Tabs.new do |tabs| %>
         <% tabs.with_tab(title: "General Information", icon: "business") do  %>
-            <%= form_with(model: @account, builder: LesliView::Forms::Builder) do |form| %>
+            <%= form_with(model: @account, url: account_path, builder: LesliView::Forms::Builder) do |form| %>
                 <%= form.fieldset do %>
                     <%= form.field_control(:name, label: "Company name")%>
                     <%= form.field_control(:email, label: "Email") %>

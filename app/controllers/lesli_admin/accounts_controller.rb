@@ -49,8 +49,9 @@ module LesliAdmin
 
             # check saved
             if @account.update(account_params)
-                respond_with_stream(
-                    stream_notification_success('Account updated')
+                log(:description => 'Updated the account details')
+                respond_with_lesli(
+                    :turbo => stream_notification_success('Account updated')
                 )
             else 
                 #respond_with_error(@account.errors)
