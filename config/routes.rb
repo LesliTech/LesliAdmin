@@ -32,7 +32,7 @@ Building a better future, one line of code at a time.
 
 LesliAdmin::Engine.routes.draw do
 
-    Lesli::Router.mount_dashboard_for(LesliAdmin)
+    Lesli::Router.mount_lesli_engine_routes(self)
 
     resource :account, only: [:show, :update]
 
