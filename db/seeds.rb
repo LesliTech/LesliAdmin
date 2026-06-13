@@ -31,7 +31,7 @@ Building a better future, one line of code at a time.
 =end
 
 
-L2.msg("LesliAdmin", "Version: #{LesliAdmin::VERSION}", "Build: #{LesliAdmin::BUILD}")
+Termline.info("Loading seeds for: LesliAdmin #{LesliAdmin::VERSION} (#{LesliAdmin::BUILD})")
 
 if Rails.env.development? || Lesli.config.demo 
     #load(LesliAdmin::Engine.root.join("db", "seed", "#{ Rails.env.downcase }.rb"))

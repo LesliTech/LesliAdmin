@@ -33,16 +33,18 @@
 
 ### Installation
 
+**Add LesliAdmin engine gem**
 ```shell
-# Add LesliAdmin engine gem
 bundle add lesli_admin
+```
 
-# Setup & initialize the database
+**Setup & initialize the database**
+```shell
 rake lesli:db:setup
 ```
 
+**Load LesliAdmin engine**
 ```ruby
-# Load LesliAdmin engine
 Rails.application.routes.draw do
     mount LesliAdmin::Engine => "/admin"
 end
