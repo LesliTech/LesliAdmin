@@ -11,7 +11,12 @@ gem "puma"
 
 gem "sqlite3"
 
-# Start debugger with binding.b [https://github.com/ruby/debug]
-# gem "debug", ">= 1.0.0"
+gem "propshaft"
 
-gem "rails", ">= 7.2"
+gem "rubocop-rails-omakase", require: false
+
+gem "lesli"
+
+gem "lesli_testing"
+
+gem "brakeman"

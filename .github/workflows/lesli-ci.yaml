@@ -37,7 +37,7 @@
 
 # Specs for The Lesli Framework
 # -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-
-name: "Lesli specs workflow"
+name: "Lesli Tests Workflow"
 on:
   push:
     branches: [master]  # Execute when push only for the master branch
@@ -46,22 +46,21 @@ on:
   pull_request:         # Execute this workflow automatic on any new PR
 
 jobs:
-  sqlite-tests:
-    name: Run SQLite tests
-    uses: LesliTech/LesliActions/.github/workflows/lesli-spec-sqlite.yaml@master
+  lesli-test-engine-brakeman:
+    name: Run lesli-test-engine-brakeman
+    uses: LesliTech/LesliActions/.github/workflows/lesli-test-engine-brakeman.yaml@master
+    with:
+      branch: ${{ github.ref_name }}
+  lesli-test-engine-minitest:
+    name: Run lesli-test-engine-minitest
+    needs: lesli-test-engine-brakeman
+    uses: LesliTech/LesliActions/.github/workflows/lesli-test-engine-minitest.yaml@master
     with:
       branch: ${{ github.ref_name }}
 
-  postgres-tests:
-    name: Run PostgreSQL tests
-    needs: sqlite-tests  # Runs only after the SQLite tests finish
-    uses: LesliTech/LesliActions/.github/workflows/lesli-spec-postgresql.yaml@master
-    with:
-      branch: ${{ github.ref_name }}
-
-  brakeman-scan:
-    name: Static Analysis Security Tool
-    needs: postgres-tests  # Runs only after the PostgreSQL tests finish
-    uses: LesliTech/LesliActions/.github/workflows/lesli-spec-brakeman.yaml@master
+  lesli-test-builder:
+    name: Run lesli-test-builder
+    needs: lesli-test-engine-minitest
+    uses: LesliTech/LesliActions/.github/workflows/lesli-test-builder.yaml@master
     with:
       branch: ${{ github.ref_name }}
