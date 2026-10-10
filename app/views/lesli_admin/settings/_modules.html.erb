@@ -20,42 +20,38 @@
         }
     }
 </script>
-<style>
-.fixed-grid .partial-engine-spec ul {
-    display: flex;
-}
-.fixed-grid .partial-engine-spec ul li {
-    margin: 0 1rem 0 0;
-    font-size: 13px;
-}
-.fixed-grid .partial-engine-spec ul li:last-child {
-    display: none;
-}
-.fixed-grid .partial-engine-spec .material-symbols {
-    font-size: 0px;
-}
-</style>
+
 <%
-@lesli_engines = LesliSystem.engines.map do |engine, engine_info|
-    engine_info[:summary] = engine_info[:summary]&.sub("for the Lesli Framework","")&.sub("for The Lesli Framework","")
-    engine_info
-end
+    lesli_engines = LesliSystem.engines.values.map do |engine_info|
+        summary = engine_info[:summary]
+            &.sub("for the Lesli Framework", "")
+            &.sub("for The Lesli Framework", "")
+
+        engine_info.merge(summary: summary)
+    end
 %>
 
-<div class="fixed-grid">
-<div class="grid" x-data="engineManager()">
-    <% @lesli_engines.each do |engine| %>
+<section
+    class="grid grid-cols-1 gap-5 xl:grid-cols-2"
+    aria-label="Modules"
+    x-data="engineManager()">
+    <% lesli_engines.each do |engine| %>
         <% next if engine[:name] == "Root" %>
-        <div class="cell">
-            <div class="box">
+
+        <% engine_key = engine[:path].delete("/") %>
+
+        <article class="module-engine-card flex min-w-0 flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <div class="min-w-0 flex-1">
                 <%= render(LesliView::Partials::EngineSpec.new(engine)) %>
-                <button 
-                    @click="toggleEngine('<%= engine[:path].gsub("/","") %>')" 
-                    :class="data.engines.includes('<%= engine[:path].gsub("/","") %>') ? 'button is-small is-info' : 'button is-small is-danger has-text-white'" 
-                    x-text="data.engines.includes('<%= engine[:path].gsub("/","") %>') ? 'Activar módulo' : 'Desactivar módulo'">
-                </button>
             </div>
-        </div>
+
+            <button
+                type="button"
+                class="mt-5 inline-flex w-fit items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold text-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                @click="toggleEngine(<%= engine_key.to_json %>)"
+                :class="data.engines.includes(<%= engine_key.to_json %>) ? 'bg-emerald-600 hover:bg-emerald-700 focus-visible:ring-emerald-500/30' : 'bg-red-600 hover:bg-red-700 focus-visible:ring-red-500/30'"
+                x-text="data.engines.includes(<%= engine_key.to_json %>) ? 'Activar módulo' : 'Desactivar módulo'">
+            </button>
+        </article>
     <% end %>
-</div>
-</div>
+</section>

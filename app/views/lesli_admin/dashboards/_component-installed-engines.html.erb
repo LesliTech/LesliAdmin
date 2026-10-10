@@ -1,8 +1,1 @@
-<div class="box has-text-centered py-6">
-    <p class="is-title is-size-3 mb-2">
-        <b><%= LesliSystem.engines.size %></b>
-    </p>
-    <p class="is-title is-size-4">
-        Installed engines
-    </p>
-</div>
+<%= render(LesliView::Widgets::Count.new('Installed engines', LesliSystem.engines.size)) %>

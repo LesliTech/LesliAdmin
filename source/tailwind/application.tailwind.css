@@ -1,0 +1,35 @@
+/* Tailwind utilities used by LesliAdmin views. */
+@layer theme, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@source "../../app/views/lesli_admin/settings/_defaults.html.erb";
+@source "../../app/views/lesli_admin/settings/_modules.html.erb";
+
+@layer components {
+    .module-engine-card .partial-engine-spec > div {
+        @apply mb-4 border-b border-slate-200 pb-4;
+    }
+
+    .module-engine-card .partial-engine-spec h5 {
+        @apply text-lg font-semibold text-slate-900;
+    }
+
+    .module-engine-card .partial-engine-spec p {
+        @apply mt-1 text-sm leading-6 text-slate-600;
+    }
+
+    .module-engine-card .partial-engine-spec ul {
+        @apply flex flex-wrap gap-x-4 gap-y-2;
+    }
+
+    .module-engine-card .partial-engine-spec li {
+        @apply m-0 text-xs text-slate-600;
+    }
+
+    .module-engine-card .partial-engine-spec li:last-child,
+    .module-engine-card .partial-engine-spec .material-symbols {
+        @apply hidden;
+    }
+}
