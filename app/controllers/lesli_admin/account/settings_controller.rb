@@ -25,7 +25,7 @@ module LesliAdmin
       @account_setting = Account::Setting.new(account_setting_params)
 
       if @account_setting.save
-        redirect_to @account_setting, notice: "Setting was successfully created."
+        redirect_to @account_setting, notice: "Setting was successfully created.", allow_other_host: false
       else
         render :new, status: :unprocessable_entity
       end
@@ -34,7 +34,7 @@ module LesliAdmin
     # PATCH/PUT /account/settings/1
     def update
       if @account_setting.update(account_setting_params)
-        redirect_to @account_setting, notice: "Setting was successfully updated.", status: :see_other
+        redirect_to @account_setting, notice: "Setting was successfully updated.", status: :see_other, allow_other_host: false
       else
         render :edit, status: :unprocessable_entity
       end

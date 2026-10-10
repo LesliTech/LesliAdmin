@@ -25,7 +25,7 @@ module LesliAdmin
       @account_currency = Account::Currency.new(account_currency_params)
 
       if @account_currency.save
-        redirect_to @account_currency, notice: "Currency was successfully created."
+        redirect_to @account_currency, notice: "Currency was successfully created.", allow_other_host: false
       else
         render :new, status: :unprocessable_entity
       end
@@ -34,7 +34,7 @@ module LesliAdmin
     # PATCH/PUT /account/currencies/1
     def update
       if @account_currency.update(account_currency_params)
-        redirect_to @account_currency, notice: "Currency was successfully updated.", status: :see_other
+        redirect_to @account_currency, notice: "Currency was successfully updated.", status: :see_other, allow_other_host: false
       else
         render :edit, status: :unprocessable_entity
       end

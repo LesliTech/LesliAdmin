@@ -25,7 +25,7 @@ module LesliAdmin
       @account_detail = Account::Detail.new(account_detail_params)
 
       if @account_detail.save
-        redirect_to @account_detail, notice: "Detail was successfully created."
+        redirect_to @account_detail, notice: "Detail was successfully created.", allow_other_host: false
       else
         render :new, status: :unprocessable_entity
       end
@@ -34,7 +34,7 @@ module LesliAdmin
     # PATCH/PUT /account/details/1
     def update
       if @account_detail.update(account_detail_params)
-        redirect_to @account_detail, notice: "Detail was successfully updated.", status: :see_other
+        redirect_to @account_detail, notice: "Detail was successfully updated.", status: :see_other, allow_other_host: false
       else
         render :edit, status: :unprocessable_entity
       end

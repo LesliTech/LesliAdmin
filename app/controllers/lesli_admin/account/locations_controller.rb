@@ -25,7 +25,7 @@ module LesliAdmin
       @account_location = Account::Location.new(account_location_params)
 
       if @account_location.save
-        redirect_to @account_location, notice: "Location was successfully created."
+        redirect_to @account_location, notice: "Location was successfully created.", allow_other_host: false
       else
         render :new, status: :unprocessable_entity
       end
@@ -34,7 +34,7 @@ module LesliAdmin
     # PATCH/PUT /account/locations/1
     def update
       if @account_location.update(account_location_params)
-        redirect_to @account_location, notice: "Location was successfully updated.", status: :see_other
+        redirect_to @account_location, notice: "Location was successfully updated.", status: :see_other, allow_other_host: false
       else
         render :edit, status: :unprocessable_entity
       end
