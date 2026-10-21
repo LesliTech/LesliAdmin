@@ -32,6 +32,13 @@ Building a better future, one line of code at a time.
 
 module LesliAdmin
     class Dashboard < Lesli::Shared::Dashboard
-        COMPONENTS = %i[installed_engines]
+        RETIRED_COMPONENTS = %w[locations currencies settings].freeze
+
+        COMPONENTS = [
+            { users: { size: 4, position: 1 } },
+            { roles: { size: 4, position: 2 } },
+            { installed_engines: { size: 4, position: 3 } },
+            { account_metadata: { size: 12, position: 4 } }
+        ].freeze
     end
 end

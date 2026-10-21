@@ -35,32 +35,32 @@
 
 
 
-# Specs for The Lesli Framework
-# -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-   -·-
-name: "Lesli Tests Workflow"
+# Continuous integration for the LesliAdmin Rails engine.
+name: "Lesli CI"
+
 on:
-  push:
-    branches: [master]  # Execute when push only for the master branch
-  workflow_dispatch:    # This allows the action to be executed on demand
-  workflow_call:        # This makes it reusable across all the lesli repos
-  pull_request:         # Execute this workflow automatic on any new PR
+    push:
+        branches:
+            - master
+    pull_request:
+    workflow_dispatch:
+
+permissions:
+    contents: read
 
 jobs:
-  lesli-test-engine-brakeman:
-    name: Run lesli-test-engine-brakeman
-    uses: LesliTech/LesliActions/.github/workflows/lesli-test-engine-brakeman.yaml@master
-    with:
-      branch: ${{ github.ref_name }}
-  lesli-test-engine-minitest:
-    name: Run lesli-test-engine-minitest
-    needs: lesli-test-engine-brakeman
-    uses: LesliTech/LesliActions/.github/workflows/lesli-test-engine-minitest.yaml@master
-    with:
-      branch: ${{ github.ref_name }}
-
-  lesli-test-builder:
-    name: Run lesli-test-builder
-    needs: lesli-test-engine-minitest
-    uses: LesliTech/LesliActions/.github/workflows/lesli-test-builder.yaml@master
-    with:
-      branch: ${{ github.ref_name }}
+    ci:
+        name: "Test and integrate Rails engine"
+        uses: LesliTech/LesliActions/.github/workflows/lesli-ci-engine.yaml@master
+        with:
+            ruby-version: "3.3.5"
+            module-directory: "engines"
+            security-path: "."
+            run-security: true
+            run-integration: true
+            run-integration-new: false
+            builder-ref: "master"
+            lesli-ref: "master"
+            actions-ref: "master"
+        secrets:
+            CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

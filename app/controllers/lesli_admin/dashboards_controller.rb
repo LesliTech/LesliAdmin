@@ -32,5 +32,26 @@ Building a better future, one line of code at a time.
 
 module LesliAdmin
     class DashboardsController < Lesli::Shared::DashboardsController
+        def show
+            @account_summary = AccountService.new(current_user, query).summary
+
+            synchronize_dashboard_components if defined?(LesliDashboard)
+
+            return super if defined?(LesliDashboard)
+
+            render :show
+        end
+
+        private
+
+        def synchronize_dashboard_components
+            dashboard_account = current_user.account.dashboard
+            return unless dashboard_account
+
+            LesliDashboard::DashboardService.new(current_user).register(dashboard_account)
+
+            dashboard = dashboard_account.dashboards.find_by(engine: "LesliAdmin")
+            dashboard&.components&.where(component: Dashboard::RETIRED_COMPONENTS)&.destroy_all
+        end
     end
 end

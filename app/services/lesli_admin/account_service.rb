@@ -34,11 +34,24 @@ module LesliAdmin
     class AccountService < Lesli::ApplicationLesliService
         def show
             account = Lesli::Account
-                .includes(:user, :detail, :users, :roles, :admin_locations, admin: [:currencies, :settings])
+                .includes(:user, :detail)
                 .find(current_user.account.id)
 
             account.build_detail unless account.detail
             account
+        end
+
+        def summary
+            account = Lesli::Account
+                .includes(:user, :users, :roles)
+                .find(current_user.account.id)
+
+            {
+                account: account,
+                users: account.users.size,
+                roles: account.roles.size,
+                installed_engines: LesliSystem.engines.size
+            }
         end
     end 
 end

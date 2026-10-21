@@ -51,5 +51,16 @@ module LesliAdmin
             assert_predicate account.detail, :new_record?
             assert_equal @account.id, account.id
         end
+
+        test "account service summarizes dashboard resources" do
+            current_user = Struct.new(:account).new(@account)
+
+            summary = LesliAdmin::AccountService.new(current_user).summary
+
+            assert_equal @account, summary[:account]
+            assert_equal 0, summary[:users]
+            assert_equal 0, summary[:roles]
+            assert_equal LesliSystem.engines.size, summary[:installed_engines]
+        end
     end
 end

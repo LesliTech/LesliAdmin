@@ -1,0 +1,44 @@
+<%
+    account = @account_summary[:account]
+    status_classes = case account.status
+    when "active"
+        "bg-emerald-100 text-emerald-700"
+    when "suspended"
+        "bg-red-100 text-red-700"
+    when "onboarding"
+        "bg-amber-100 text-amber-700"
+    else
+        "bg-sky-100 text-sky-700"
+    end
+%>
+
+<section class="h-full rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="account-metadata-title">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+        <div>
+            <h2 id="account-metadata-title" class="text-base font-semibold text-slate-900">Account metadata</h2>
+            <p class="mt-1 text-sm text-slate-500">Read-only identifiers and lifecycle information.</p>
+        </div>
+        <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold <%= status_classes %>">
+            <%= account.status.humanize %>
+        </span>
+    </div>
+
+    <dl class="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2 xl:grid-cols-4">
+        <div>
+            <dt class="text-sm font-medium text-slate-500">Account ID</dt>
+            <dd class="mt-1 break-all text-sm text-slate-900"><%= account.id %></dd>
+        </div>
+        <div>
+            <dt class="text-sm font-medium text-slate-500">Owner</dt>
+            <dd class="mt-1 break-all text-sm text-slate-900"><%= account.user&.email || "Not assigned" %></dd>
+        </div>
+        <div>
+            <dt class="text-sm font-medium text-slate-500">Created</dt>
+            <dd class="mt-1 text-sm text-slate-900"><%= l(account.created_at, format: :long) %></dd>
+        </div>
+        <div>
+            <dt class="text-sm font-medium text-slate-500">Last updated</dt>
+            <dd class="mt-1 text-sm text-slate-900"><%= l(account.updated_at, format: :long) %></dd>
+        </div>
+    </dl>
+</section>

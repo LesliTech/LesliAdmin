@@ -6,8 +6,17 @@ module LesliAdmin
             assert_operator LesliAdmin::Dashboard, :<, Lesli::Shared::Dashboard
         end
 
-        test "registers the installed engines component" do
-            assert_includes LesliAdmin::Dashboard::COMPONENTS, :installed_engines
+        test "registers each account metric and metadata component" do
+            component_names = LesliAdmin::Dashboard::COMPONENTS.map { |component| component.keys.first }
+
+            assert_equal %i[
+                users
+                roles
+                installed_engines
+                account_metadata
+            ], component_names
+
+            assert_equal %w[locations currencies settings], LesliAdmin::Dashboard::RETIRED_COMPONENTS
         end
     end
 end

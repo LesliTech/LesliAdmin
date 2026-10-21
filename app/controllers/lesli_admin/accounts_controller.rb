@@ -36,7 +36,6 @@ module LesliAdmin
 
         def show
             @account = AccountService.new(current_user, query).show
-            set_account_summary
 
             respond_to do |format|
                 format.html
@@ -56,7 +55,6 @@ module LesliAdmin
                     redirect: account_path
                 )
             else
-                set_account_summary
                 respond_with_lesli(
                     turbo: stream_notification_danger(@account.errors.full_messages.to_sentence),
                     json: { errors: @account.errors.to_hash },
@@ -105,16 +103,5 @@ module LesliAdmin
             )
         end
 
-        def set_account_summary
-            admin_account = @account.admin
-
-            @account_summary = {
-                users: @account.users.size,
-                roles: @account.roles.size,
-                locations: @account.admin_locations.size,
-                currencies: admin_account&.currencies&.size || 0,
-                settings: admin_account&.settings&.size || 0
-            }
-        end
     end
 end
