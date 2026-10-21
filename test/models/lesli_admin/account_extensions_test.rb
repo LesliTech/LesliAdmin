@@ -1,0 +1,55 @@
+require "test_helper"
+
+module LesliAdmin
+    class AccountExtensionsTest < ActiveSupport::TestCase
+        setup do
+            identifier = SecureRandom.hex(6)
+            timestamp = Time.current
+
+            Lesli::Account.insert_all!([{
+                name: "Account #{identifier}",
+                email: "account-#{identifier}@example.com",
+                status: "active",
+                region: "america",
+                created_at: timestamp,
+                updated_at: timestamp
+            }])
+
+            @account = Lesli::Account.find_by!(email: "account-#{identifier}@example.com")
+        end
+
+        test "adds the admin profile and location associations to the core account" do
+            detail = Lesli::Account.reflect_on_association(:detail)
+            locations = Lesli::Account.reflect_on_association(:admin_locations)
+
+            assert_equal "LesliAdmin::Account::Detail", detail.class_name
+            assert_equal "LesliAdmin::Account::Location", locations.class_name
+        end
+
+        test "creates and updates one company profile through nested attributes" do
+            assert_difference(-> { LesliAdmin::Account::Detail.count }, 1) do
+                @account.update!(detail_attributes: {
+                    company_name: "Example Company",
+                    public_email: "hello@example.com"
+                })
+            end
+
+            assert_no_difference(-> { LesliAdmin::Account::Detail.count }) do
+                @account.update!(detail_attributes: {
+                    company_name: "Updated Company"
+                })
+            end
+
+            assert_equal "Updated Company", @account.reload.detail.company_name
+        end
+
+        test "account service prepares an empty company profile for the form" do
+            current_user = Struct.new(:account).new(@account)
+
+            account = LesliAdmin::AccountService.new(current_user).show
+
+            assert_predicate account.detail, :new_record?
+            assert_equal @account.id, account.id
+        end
+    end
+end

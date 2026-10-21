@@ -36,6 +36,8 @@ module LesliAdmin
 
         def show
             @account = AccountService.new(current_user, query).show
+            set_account_summary
+
             respond_to do |format|
                 format.html
                 format.turbo_stream
@@ -46,15 +48,21 @@ module LesliAdmin
         end
     
         def update
-
-            # check saved
             if @account.update(account_params)
                 log(:description => 'Updated the account details')
                 respond_with_lesli(
-                    :turbo => stream_notification_success('Account updated')
+                    turbo: stream_notification_success("Account updated successfully"),
+                    json: @account,
+                    redirect: account_path
                 )
-            else 
-                #respond_with_error(@account.errors)
+            else
+                set_account_summary
+                respond_with_lesli(
+                    turbo: stream_notification_danger(@account.errors.full_messages.to_sentence),
+                    json: { errors: @account.errors.to_hash },
+                    html: :show,
+                    status: :unprocessable_content
+                )
             end
         end
 
@@ -69,31 +77,44 @@ module LesliAdmin
         # Only allow a list of trusted parameters through.
         def account_params
             params.require(:account).permit(
-                :id,
                 :name,
                 :email,
+                :status,
+                :region,
                 detail_attributes: [
-                    :company_name_legal, 
-                    :company_tagline
+                    :company_name,
+                    :company_name_legal,
+                    :company_tagline,
+                    :country,
+                    :address,
+                    :region,
+                    :city,
+                    :postal_code,
+                    :website,
+                    :phone_number_1,
+                    :phone_number_2,
+                    :phone_number_3,
+                    :phone_number_4,
+                    :public_email,
+                    :github,
+                    :twitter,
+                    :youtube,
+                    :linkedin,
+                    :facebook
                 ]
-                # :company_name_legal,
-                # :company_tagline,
-                # :country,
-                # :city,
-                # :postal_code,
-                # :address,
-                # :region,
-                # :website,
-                # :phone_number_1,
-                # :public_email,
-                # :github,
-                # :twitter,
-                # :youtube,
-                # :linkedin,
-                # :facebook,
-                # :status,
-                # :users_id
             )
+        end
+
+        def set_account_summary
+            admin_account = @account.admin
+
+            @account_summary = {
+                users: @account.users.size,
+                roles: @account.roles.size,
+                locations: @account.admin_locations.size,
+                currencies: admin_account&.currencies&.size || 0,
+                settings: admin_account&.settings&.size || 0
+            }
         end
     end
 end

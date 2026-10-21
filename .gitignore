@@ -43,7 +43,6 @@ brakeman.html
 /log/*.log
 /pkg/
 /tmp/
-/app2
 /test/dummy/db/*.sqlite3
 /test/dummy/db/*.sqlite3-*
 /test/dummy/log/*.log

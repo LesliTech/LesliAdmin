@@ -32,8 +32,10 @@ Building a better future, one line of code at a time.
 
 module LesliAdmin
     class Account < ApplicationRecord
-        belongs_to :account, class_name: "Lesli::Account"
+        belongs_to :account, class_name: "Lesli::Account", inverse_of: :admin
         has_many :dashboards
+        has_many :settings, class_name: "LesliAdmin::Account::Setting", dependent: :destroy
+        has_many :currencies, class_name: "LesliAdmin::Account::Currency", dependent: :destroy
 
         after_create :initialize_account
 

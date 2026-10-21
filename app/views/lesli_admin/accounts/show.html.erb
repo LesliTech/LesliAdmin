@@ -1,17 +1,193 @@
+<%
+    status_classes = case @account.status
+    when "active"
+        "bg-emerald-100 text-emerald-700"
+    when "suspended"
+        "bg-red-100 text-red-700"
+    when "onboarding"
+        "bg-amber-100 text-amber-700"
+    else
+        "bg-sky-100 text-sky-700"
+    end
+
+    resources = [
+        { label: "Users", count: @account_summary[:users], icon: "group" },
+        { label: "Roles", count: @account_summary[:roles], icon: "shield_person" },
+        { label: "Locations", count: @account_summary[:locations], icon: "location_on" },
+        { label: "Currencies", count: @account_summary[:currencies], icon: "payments" },
+        { label: "Settings", count: @account_summary[:settings], icon: "tune" }
+    ]
+%>
 
 <%= render(LesliView::Layout::Container.new("accounts")) do %>
+    <%= render(
+        LesliView::Components::Header.new(
+            "Account",
+            "Manage the core identity, company profile, and resources for #{@account.name}."
+        )
+    ) %>
 
-    <%= render(LesliView::Components::Header.new("Account information")) %>
+    <% if @account.errors.any? %>
+        <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+            <p class="font-semibold">The account could not be updated.</p>
+            <ul class="mt-2 list-disc space-y-1 pl-5">
+                <% @account.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
 
     <%= render LesliView::Components::Tabs.new do |tabs| %>
-        <% tabs.with_tab(title: "General Information", icon: "business") do  %>
+        <% tabs.with_tab(id: "general", title: "General", icon: "business") do %>
             <%= form_with(model: @account, url: account_path, builder: LesliView::Forms::Builder) do |form| %>
-                <%= form.fieldset do %>
-                    <%= form.field_control(:name, label: "Company name")%>
-                    <%= form.field_control(:email, label: "Email") %>
-                    <%= form.field_control_submit %>
+                <%= form.fieldset("Core account") do %>
+                    <p class="mb-5 text-sm leading-6 text-slate-500">
+                        These values identify the account throughout every installed Lesli engine.
+                    </p>
+
+                    <div class="grid grid-cols-1 gap-x-5 md:grid-cols-2">
+                        <%= form.field_control(
+                            :name,
+                            label: "Account name",
+                            autocomplete: "organization",
+                            required: true
+                        ) %>
+                        <%= form.field_control_email(
+                            :email,
+                            label: "Account email",
+                            autocomplete: "email",
+                            required: true
+                        ) %>
+                        <%= form.field_control_select(
+                            :status,
+                            Lesli::Account.statuses.keys.map { |status| [status, status] },
+                            label: "Status"
+                        ) %>
+                        <%= form.field_control_select(
+                            :region,
+                            Lesli::Account.regions.keys.map { |region| [region, region] },
+                            label: "Data region"
+                        ) %>
+                    </div>
+
+                    <div class="mt-2 flex justify-end">
+                        <%= form.field_control_button("Save account", category: "primary", icon: "save") %>
+                    </div>
                 <% end %>
             <% end %>
+        <% end %>
+
+        <% tabs.with_tab(id: "company-profile", title: "Company profile", icon: "domain") do %>
+            <%= form_with(model: @account, url: account_path, builder: LesliView::Forms::Builder) do |form| %>
+                <%= form.fields_for(:detail) do |detail| %>
+                    <%= detail.fieldset("Company information") do %>
+                        <div class="grid grid-cols-1 gap-x-5 md:grid-cols-2">
+                            <%= detail.field_control(:company_name, label: "Public company name", autocomplete: "organization") %>
+                            <%= detail.field_control(:company_name_legal, label: "Legal company name") %>
+                            <div class="md:col-span-2">
+                                <%= detail.field_control(:company_tagline, label: "Tagline") %>
+                            </div>
+                        </div>
+                    <% end %>
+
+                    <%= detail.fieldset("Address and contact") do %>
+                        <div class="grid grid-cols-1 gap-x-5 md:grid-cols-2">
+                            <div class="md:col-span-2">
+                                <%= detail.field_control(:address, label: "Address", autocomplete: "street-address") %>
+                            </div>
+                            <%= detail.field_control(:city, label: "City", autocomplete: "address-level2") %>
+                            <%= detail.field_control(:region, label: "State or region", autocomplete: "address-level1") %>
+                            <%= detail.field_control(
+                                :country,
+                                label: "Country catalog ID",
+                                message: "Numeric identifier from the configured country catalog.",
+                                type: "number",
+                                min: 0
+                            ) %>
+                            <%= detail.field_control(:postal_code, label: "Postal code", autocomplete: "postal-code") %>
+                            <%= detail.field_control_email(:public_email, label: "Public email", autocomplete: "email") %>
+                            <%= detail.field_control(:website, label: "Website", type: "url", autocomplete: "url") %>
+                            <%= detail.field_control(:phone_number_1, label: "Primary phone", type: "tel", autocomplete: "tel") %>
+                            <%= detail.field_control(:phone_number_2, label: "Secondary phone", type: "tel") %>
+                            <%= detail.field_control(:phone_number_3, label: "Additional phone 1", type: "tel") %>
+                            <%= detail.field_control(:phone_number_4, label: "Additional phone 2", type: "tel") %>
+                        </div>
+                    <% end %>
+
+                    <%= detail.fieldset("Social profiles") do %>
+                        <div class="grid grid-cols-1 gap-x-5 md:grid-cols-2">
+                            <%= detail.field_control(:github, label: "GitHub", type: "url") %>
+                            <%= detail.field_control(:linkedin, label: "LinkedIn", type: "url") %>
+                            <%= detail.field_control(:twitter, label: "X / Twitter", type: "url") %>
+                            <%= detail.field_control(:facebook, label: "Facebook", type: "url") %>
+                            <%= detail.field_control(:youtube, label: "YouTube", type: "url") %>
+                        </div>
+
+                        <div class="mt-2 flex justify-end">
+                            <%= detail.field_control_button("Save company profile", category: "primary", icon: "save") %>
+                        </div>
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+
+        <% tabs.with_tab(id: "resources", title: "Resources", icon: "inventory_2") do %>
+            <section aria-labelledby="account-resources-title">
+                <div class="mb-5">
+                    <h2 id="account-resources-title" class="text-lg font-semibold text-slate-900">Account resources</h2>
+                    <p class="mt-1 text-sm leading-6 text-slate-500">
+                        A summary of the records currently associated with this account.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                    <% resources.each do |resource| %>
+                        <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                            <div class="flex items-center justify-between gap-4">
+                                <div>
+                                    <p class="text-sm font-medium text-slate-500"><%= resource[:label] %></p>
+                                    <p class="mt-1 text-3xl font-semibold tracking-tight text-slate-900"><%= resource[:count] %></p>
+                                </div>
+                                <span class="material-symbols-outlined rounded-xl bg-sky-50 p-3 text-2xl text-sky-700" aria-hidden="true">
+                                    <%= resource[:icon] %>
+                                </span>
+                            </div>
+                        </article>
+                    <% end %>
+                </div>
+
+                <article class="mt-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                    <div class="flex flex-wrap items-start justify-between gap-4">
+                        <div>
+                            <h3 class="text-base font-semibold text-slate-900">Account metadata</h3>
+                            <p class="mt-1 text-sm text-slate-500">Read-only identifiers and lifecycle information.</p>
+                        </div>
+                        <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold <%= status_classes %>">
+                            <%= @account.status.humanize %>
+                        </span>
+                    </div>
+
+                    <dl class="mt-5 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2 xl:grid-cols-4">
+                        <div>
+                            <dt class="text-sm font-medium text-slate-500">Account ID</dt>
+                            <dd class="mt-1 break-all text-sm text-slate-900"><%= @account.id %></dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-slate-500">Owner</dt>
+                            <dd class="mt-1 break-all text-sm text-slate-900"><%= @account.user&.email || "Not assigned" %></dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-slate-500">Created</dt>
+                            <dd class="mt-1 text-sm text-slate-900"><%= l(@account.created_at, format: :long) %></dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-slate-500">Last updated</dt>
+                            <dd class="mt-1 text-sm text-slate-900"><%= l(@account.updated_at, format: :long) %></dd>
+                        </div>
+                    </dl>
+                </article>
+            </section>
         <% end %>
     <% end %>
 <% end %>
