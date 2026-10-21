@@ -1,6 +1,6 @@
 # Account Management
 
-LesliAdmin provides the administrative interface for the current Lesli account. The public account page currently allows an administrator to review and update the core account name and email address.
+LesliAdmin provides the administrative interface for the current Lesli account. The account page separates the core identity and company profile into horizontal tabs so administrators can update each area independently.
 
 Open the page from the Admin navigation or visit:
 
@@ -10,24 +10,47 @@ Open the page from the Admin navigation or visit:
 
 ---
 
-## Account Information
+## General
 
-The account form reads the signed-in user's current `Lesli::Account` and exposes these fields:
+The General tab reads the signed-in user's current `Lesli::Account` and exposes these fields:
 
 | Field | Purpose |
 | --- | --- |
 | Name | Account or organization name shown throughout the application |
 | Email | Primary account email address |
+| Status | Account lifecycle state, such as active, onboarding, or suspended |
+| Data region | Region used to place or identify account data |
 
 Submitting the form updates the existing core account. LesliAdmin does not create a second account identity; its engine-specific account record extends the account owned by Lesli Core.
 
-The controller also supports HTML, Turbo Stream, and JSON responses for the account resource. Host applications should use the mounted engine route rather than constructing controller URLs manually.
+---
+
+## Company Profile
+
+The Company profile tab updates the account's associated `LesliAdmin::Account::Detail` record through nested attributes. When an account does not have a detail record yet, the account service builds an unsaved record so the same form supports the initial save and later updates.
+
+The profile contains:
+
+* Public and legal company names and a tagline
+* Address, city, state or region, country catalog ID, and postal code
+* Public email, website, and up to four phone numbers
+* GitHub, LinkedIn, X/Twitter, Facebook, and YouTube URLs
+
+The core account and company profile use separate forms. Saving one tab does not submit fields from the other tab.
+
+---
+
+## Request and Response Behavior
+
+The account controller scopes both reads and writes to `current_user.account`. Updates accept only the core fields and the documented company-detail fields.
+
+The controller supports HTML, Turbo Stream, and JSON responses for the account resource. Validation errors render the account page again and are shown above the tabs. Host applications should use the mounted engine route instead of constructing controller URLs manually.
 
 ---
 
 ## Extending Account Information
 
-LesliAdmin owns database structures for company details, locations, settings, and currencies. Those structures are extension points under active development and are not all exposed as public account workflows yet.
+LesliAdmin also owns database structures for locations, settings, and currencies. Those structures are extension points and are not currently exposed as account-editing workflows.
 
 When extending the account interface:
 

@@ -67,7 +67,7 @@ LesliAdmin owns its migrations inside the gem. Do not copy them into the host ap
 
 ## Optional Dashboard Integration
 
-Install LesliDashboard when the application should render LesliAdmin's shared dashboard and its installed-engines component:
+Install LesliDashboard when the application should persist and render LesliAdmin's shared account metrics and metadata components:
 
 ```shell
 bundle add lesli_dashboard
