@@ -7,6 +7,7 @@
 @source "../../app/views/lesli_admin/accounts/show.html.erb";
 @source "../../app/views/lesli_admin/dashboards";
 @source "../../app/views/lesli_admin/settings/_defaults.html.erb";
+@source "../../app/views/lesli_admin/settings/_configuration_value.html.erb";
 @source "../../app/views/lesli_admin/settings/_modules.html.erb";
 
 @layer components {

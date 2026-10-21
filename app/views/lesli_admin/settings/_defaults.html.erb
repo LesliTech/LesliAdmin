@@ -1,71 +1,158 @@
 <%
-    sections = {
-        "Instance Info" => {
-            demo: Lesli.config.demo,
-            instance: Lesli.config.instance
+    sections = [
+        {
+            title: "Instance",
+            icon: "dns",
+            description: "Runtime identity and operating mode for this installation.",
+            config: {
+                demo: Lesli.config.demo,
+                instance: Lesli.config.instance
+            }
         },
-        "Company Info" => Lesli.config.company,
-        "Available Locales" => Lesli.config.babel[:locales],
-        "Datetime Settings" => Lesli.config.datetime,
-        "Security Settings" => Lesli.config.security,
-        "Theme" => Lesli.config.theme,
-        "Layout" => Lesli.config.layout,
-        "Mailer" => Lesli.config.mailer,
-        "Paths" => {
-            path_after_login: Lesli.config.shield[:path_after_login]
+        {
+            title: "Company",
+            icon: "apartment",
+            description: "Organization details displayed throughout the platform.",
+            config: Lesli.config.company
+        },
+        {
+            title: "Locales",
+            icon: "translate",
+            description: "Languages currently available to users.",
+            config: Lesli.config.babel&.fetch(:locales, {})
+        },
+        {
+            title: "Date and time",
+            icon: "schedule",
+            description: "Time zone, week boundaries, and display formats.",
+            config: Lesli.config.datetime
+        },
+        {
+            title: "Security",
+            icon: "shield_lock",
+            description: "Authentication and account-access behavior.",
+            config: Lesli.config.security
+        },
+        {
+            title: "Theme",
+            icon: "palette",
+            description: "Colors used by the shared Lesli interface.",
+            config: Lesli.config.theme
+        },
+        {
+            title: "Layout",
+            icon: "dashboard_customize",
+            description: "Global interface features and visibility controls.",
+            config: Lesli.config.layout
+        },
+        {
+            title: "Mailer",
+            icon: "mail",
+            description: "Email delivery and template configuration.",
+            config: Lesli.config.mailer
+        },
+        {
+            title: "Paths",
+            icon: "route",
+            description: "Application destinations used by navigation and authentication.",
+            config: {
+                path_after_login: Lesli.config.shield&.fetch(:path_after_login, nil)
+            }
         }
-    }
+    ].map { |section| section.merge(config: section[:config] || {}) }
 
-    grid_classes = {
-        "Instance Info" => "sm:grid-cols-2 lg:grid-cols-4",
-        "Datetime Settings" => "sm:grid-cols-2",
-        "Security Settings" => "sm:grid-cols-2 lg:grid-cols-4",
-        "Theme" => "sm:grid-cols-2 lg:grid-cols-3"
-    }
+    leaf_count = lambda do |value|
+        case value
+        when Hash
+            value.values.sum { |nested_value| leaf_count.call(nested_value) }
+        when Array
+            value.sum { |nested_value| leaf_count.call(nested_value) }
+        else
+            1
+        end
+    end
+
+    total_settings = sections.sum { |section| leaf_count.call(section[:config]) }
 %>
 
 <section aria-labelledby="lesli-configuration-title">
-    <h4
-        id="lesli-configuration-title"
-        class="mb-5 text-xl font-semibold tracking-tight text-slate-900">
-        Lesli Configuration
-    </h4>
 
-    <div class="space-y-5">
-        <% sections.each do |title, config| %>
-            <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-                <h5 class="mb-4 text-base font-semibold text-slate-900"><%= title %></h5>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined rounded-xl bg-sky-50 p-2.5 text-2xl text-sky-700" aria-hidden="true">settings</span>
+            <div>
+                <h2 id="lesli-configuration-title" class="text-xl font-semibold tracking-tight text-slate-900">
+                    Lesli configuration
+                </h2>
+                <p class="mt-1 text-sm leading-6 text-slate-500">
+                    Effective read-only values loaded by this application instance.
+                </p>
+            </div>
+        </div>
 
-                <dl class="grid grid-cols-1 gap-x-6 gap-y-5 <%= grid_classes.fetch(title, "sm:grid-cols-2 lg:grid-cols-4") %>">
-                <% config.each do |key, value| %>
-                    <div class="min-w-0">
-                        <dt class="text-sm font-medium text-slate-600"><%= key.to_s.humanize %></dt>
-                        <dd class="mt-2 text-sm text-slate-900">
-                            <% if value.is_a?(Hash) %>
-                                <ul class="space-y-2 border-l-2 border-slate-200 pl-3">
-                                    <% value.each do |nested_key, nested_value| %>
-                                        <li class="min-w-0">
-                                            <span class="font-medium text-slate-700"><%= nested_key.to_s.humanize %>:</span>
-                                            <code class="ml-1 break-all rounded bg-slate-100 px-1.5 py-0.5 text-xs text-slate-700"><%= nested_value %></code>
-                                        </li>
-                                    <% end %>
-                                </ul>
-                            <% elsif value == true %>
-                                <span class="inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-700">
-                                    Enabled
-                                </span>
-                            <% elsif value == false %>
-                                <span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700">
-                                    Disabled
-                                </span>
-                            <% else %>
-                                <code class="break-all rounded bg-slate-100 px-1.5 py-1 text-xs text-slate-700"><%= value.to_s %></code>
+        <dl class="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            <div class="rounded-xl bg-slate-50 px-4 py-3">
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">Environment</dt>
+                <dd class="mt-1 text-sm font-semibold text-slate-900"><%= Rails.env.to_s.humanize %></dd>
+            </div>
+            <div class="rounded-xl bg-slate-50 px-4 py-3">
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">Sections</dt>
+                <dd class="mt-1 text-sm font-semibold text-slate-900"><%= sections.size %></dd>
+            </div>
+            <div class="rounded-xl bg-slate-50 px-4 py-3">
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">Values</dt>
+                <dd class="mt-1 text-sm font-semibold text-slate-900"><%= total_settings %></dd>
+            </div>
+            <div class="rounded-xl bg-slate-50 px-4 py-3">
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-500">Demo mode</dt>
+                <dd class="mt-1">
+                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold <%= Lesli.config.demo ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700" %>">
+                        <%= Lesli.config.demo ? "Enabled" : "Disabled" %>
+                    </span>
+                </dd>
+            </div>
+        </dl>
+    </div>
+
+    <div class="mt-5 space-y-4">
+        <% sections.each_with_index do |section, index| %>
+            <details
+                class="group rounded-2xl border border-slate-200 bg-white shadow-sm"
+                <%= "open" if index < 2 %>>
+                <summary class="flex cursor-pointer list-none items-center gap-4 px-5 py-4 marker:hidden sm:px-6">
+                    <span class="material-symbols-outlined rounded-xl bg-slate-100 p-2.5 text-2xl text-slate-600" aria-hidden="true"><%= section[:icon] %></span>
+                    <span class="min-w-0 flex-1">
+                        <span class="block text-base font-semibold text-slate-900"><%= section[:title] %></span>
+                        <span class="mt-0.5 block text-sm leading-5 text-slate-500"><%= section[:description] %></span>
+                    </span>
+                    <span class="hidden rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600 sm:inline-flex">
+                        <%= pluralize(section[:config].size, "group") %>
+                    </span>
+                    <span class="material-symbols-outlined text-slate-400 transition-transform group-open:rotate-180" aria-hidden="true">expand_more</span>
+                </summary>
+
+                <div class="border-t border-slate-100 px-5 py-5 sm:px-6">
+                    <% if section[:config].empty? %>
+                        <p class="text-sm text-slate-500">No values are configured for this section.</p>
+                    <% else %>
+                        <dl class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                            <% section[:config].each do |key, value| %>
+                                <div class="min-w-0 rounded-xl border border-slate-100 bg-slate-50/60 p-4">
+                                    <dt class="text-xs font-semibold uppercase tracking-wide text-slate-500"><%= key.to_s.humanize %></dt>
+                                    <dd class="mt-2 text-sm text-slate-900">
+                                        <%= render("configuration_value", setting_key: key, value: value) %>
+                                    </dd>
+                                </div>
                             <% end %>
-                        </dd>
-                    </div>
-                <% end %>
-                </dl>
-            </article>
+                        </dl>
+                    <% end %>
+                </div>
+            </details>
         <% end %>
     </div>
+
+    <p class="mt-5 flex items-start gap-2 text-xs leading-5 text-slate-500">
+        <span class="material-symbols-outlined text-base" aria-hidden="true">lock</span>
+        Sensitive values are filtered on the server and are never included in this page.
+    </p>
 </section>
