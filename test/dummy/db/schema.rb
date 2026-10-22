@@ -62,8 +62,8 @@ ActiveRecord::Schema[8.1].define(version: 101000510) do
     t.datetime "deleted_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "account_id"
-    t.index ["account_id"], name: "index_lesli_admin_account_details_on_account_id"
+    t.integer "account_id", null: false
+    t.index ["account_id"], name: "index_lesli_admin_account_details_on_account_id", unique: true
     t.index ["deleted_at"], name: "index_lesli_admin_account_details_on_deleted_at"
   end
 
@@ -81,7 +81,7 @@ ActiveRecord::Schema[8.1].define(version: 101000510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_id"
-    t.integer "account_id"
+    t.integer "account_id", null: false
     t.index ["account_id", "name", "level", "parent_id"], name: "location_uniqueness_index", unique: true
     t.index ["account_id"], name: "index_lesli_admin_account_locations_on_account_id"
     t.index ["deleted_at"], name: "index_lesli_admin_account_locations_on_deleted_at"
@@ -107,7 +107,7 @@ ActiveRecord::Schema[8.1].define(version: 101000510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "account_id", null: false
-    t.index ["account_id"], name: "index_lesli_admin_accounts_on_account_id"
+    t.index ["account_id"], name: "index_lesli_admin_accounts_on_account_id", unique: true
     t.index ["deleted_at"], name: "index_lesli_admin_accounts_on_deleted_at"
   end
 
@@ -198,8 +198,8 @@ ActiveRecord::Schema[8.1].define(version: 101000510) do
   add_foreign_key "lesli_accounts", "lesli_users", column: "user_id"
   add_foreign_key "lesli_admin_account_currencies", "lesli_admin_accounts", column: "account_id"
   add_foreign_key "lesli_admin_account_currencies", "lesli_users", column: "user_id"
-  add_foreign_key "lesli_admin_account_details", "lesli_accounts", column: "account_id"
-  add_foreign_key "lesli_admin_account_locations", "lesli_accounts", column: "account_id"
+  add_foreign_key "lesli_admin_account_details", "lesli_admin_accounts", column: "account_id"
+  add_foreign_key "lesli_admin_account_locations", "lesli_admin_accounts", column: "account_id"
   add_foreign_key "lesli_admin_account_locations", "lesli_admin_account_locations", column: "parent_id"
   add_foreign_key "lesli_admin_account_settings", "lesli_admin_accounts", column: "account_id"
   add_foreign_key "lesli_admin_account_settings", "lesli_users", column: "user_id"

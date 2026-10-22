@@ -4,7 +4,7 @@ module LesliAdmin
 
     # GET /account/locations
     def index
-      @account_locations = Account::Location.all
+      @account_locations = admin_account.locations
     end
 
     # GET /account/locations/1
@@ -13,7 +13,7 @@ module LesliAdmin
 
     # GET /account/locations/new
     def new
-      @account_location = Account::Location.new
+      @account_location = admin_account.locations.build
     end
 
     # GET /account/locations/1/edit
@@ -22,7 +22,7 @@ module LesliAdmin
 
     # POST /account/locations
     def create
-      @account_location = Account::Location.new(account_location_params)
+      @account_location = admin_account.locations.build(account_location_params)
 
       if @account_location.save
         redirect_to @account_location, notice: "Location was successfully created.", allow_other_host: false
@@ -49,7 +49,11 @@ module LesliAdmin
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_account_location
-        @account_location = Account::Location.find(params.expect(:id))
+        @account_location = admin_account.locations.find(params.expect(:id))
+      end
+
+      def admin_account
+        current_user.account.admin
       end
 
       # Only allow a list of trusted parameters through.

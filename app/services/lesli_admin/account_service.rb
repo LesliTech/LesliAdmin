@@ -34,11 +34,27 @@ module LesliAdmin
     class AccountService < Lesli::ApplicationLesliService
         def show
             account = Lesli::Account
-                .includes(:user, :detail)
+                .includes(:user, admin: :detail)
                 .find(current_user.account.id)
 
-            account.build_detail unless account.detail
+            account.admin.build_detail unless account.admin.detail
             account
+        end
+
+        def update(attributes)
+            account = current_user.account
+            account_attributes = attributes.to_h.deep_symbolize_keys
+            detail_attributes = account_attributes.delete(:detail_attributes)
+
+            ActiveRecord::Base.transaction do
+                account.update!(account_attributes)
+                account.admin.update!(detail_attributes: detail_attributes) if detail_attributes
+            end
+
+            account
+        rescue ActiveRecord::RecordInvalid => exception
+            copy_errors(exception.record, to: account)
+            false
         end
 
         def summary
@@ -52,6 +68,16 @@ module LesliAdmin
                 roles: account.roles.size,
                 installed_engines: LesliSystem.engines.size
             }
+        end
+
+        private
+
+        def copy_errors(source, to:)
+            return if source.equal?(to)
+
+            source.errors.each do |error|
+                to.errors.add(:detail, error.full_message)
+            end
         end
     end 
 end

@@ -65,6 +65,12 @@ class CreateLesliAdminAccountDetails < ActiveRecord::Migration[6.0]
             t.datetime  :deleted_at, index: true
             t.timestamps
         end
-        add_reference(:lesli_admin_account_details, :account, foreign_key: { to_table: :lesli_accounts })
+        add_reference(
+            :lesli_admin_account_details,
+            :account,
+            null: false,
+            index: { unique: true },
+            foreign_key: { to_table: :lesli_admin_accounts }
+        )
     end
 end

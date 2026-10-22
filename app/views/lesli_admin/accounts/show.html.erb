@@ -59,7 +59,7 @@
 
         <% tabs.with_tab(id: "company-profile", title: "Company profile", icon: "domain") do %>
             <%= form_with(model: @account, url: account_path, builder: LesliView::Forms::Builder) do |form| %>
-                <%= form.fields_for(:detail) do |detail| %>
+                <%= form.fields_for(:detail, @account.admin.detail) do |detail| %>
                     <%= detail.fieldset("Company information") do %>
                         <div class="grid grid-cols-1 gap-x-5 md:grid-cols-2">
                             <%= detail.field_control(:company_name, label: "Public company name", autocomplete: "organization") %>

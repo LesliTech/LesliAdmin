@@ -34,12 +34,6 @@ module LesliAdmin
     class Engine < ::Rails::Engine
         isolate_namespace LesliAdmin
 
-        config.to_prepare do
-            unless Lesli::Account < LesliAdmin::AccountExtensions
-                Lesli::Account.include(LesliAdmin::AccountExtensions)
-            end
-        end
-
         initializer :lesli_admin do |app|
 
             # register assets manifest

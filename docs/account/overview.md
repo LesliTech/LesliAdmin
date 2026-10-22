@@ -27,7 +27,7 @@ Submitting the form updates the existing core account. LesliAdmin does not creat
 
 ## Company Profile
 
-The Company profile tab updates the account's associated `LesliAdmin::Account::Detail` record through nested attributes. When an account does not have a detail record yet, the account service builds an unsaved record so the same form supports the initial save and later updates.
+The Company profile tab updates the `LesliAdmin::Account::Detail` associated with the engine account. Its ownership path is `current_user.account.admin.detail`. When an account does not have a detail record yet, the account service builds an unsaved record so the same form supports the initial save and later updates.
 
 The profile contains:
 
@@ -42,7 +42,7 @@ The core account and company profile use separate forms. Saving one tab does not
 
 ## Request and Response Behavior
 
-The account controller scopes both reads and writes to `current_user.account`. Updates accept only the core fields and the documented company-detail fields.
+The account controller scopes both reads and writes to `current_user.account`. Core fields are persisted in `Lesli::Account`; company-detail fields are persisted through `current_user.account.admin`. Both writes run in one transaction.
 
 The controller supports HTML, Turbo Stream, and JSON responses for the account resource. Validation errors render the account page again and are shown above the tabs. Host applications should use the mounted engine route instead of constructing controller URLs manually.
 

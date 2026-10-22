@@ -33,9 +33,24 @@ Building a better future, one line of code at a time.
 module LesliAdmin
     class Account < ApplicationRecord
         belongs_to :account, class_name: "Lesli::Account", inverse_of: :admin
+        validates :account_id, uniqueness: true
         has_many :dashboards
         has_many :settings, class_name: "LesliAdmin::Account::Setting", dependent: :destroy
         has_many :currencies, class_name: "LesliAdmin::Account::Currency", dependent: :destroy
+        has_many(
+            :locations,
+            class_name: "LesliAdmin::Account::Location",
+            inverse_of: :account,
+            dependent: :destroy
+        )
+        has_one(
+            :detail,
+            class_name: "LesliAdmin::Account::Detail",
+            inverse_of: :account,
+            dependent: :destroy
+        )
+
+        accepts_nested_attributes_for :detail, update_only: true
 
         after_create :initialize_account
 

@@ -41,17 +41,17 @@ module LesliAdmin
                 format.html
                 format.turbo_stream
                 format.json do
-                    respond_with_successful(@account)
+                    respond_with_successful(account_payload(@account))
                 end
             end
         end
     
         def update
-            if @account.update(account_params)
+            if AccountService.new(current_user, query).update(account_params)
                 log(:description => 'Updated the account details')
                 respond_with_lesli(
                     turbo: stream_notification_success("Account updated successfully"),
-                    json: @account,
+                    json: account_payload(@account),
                     redirect: account_path
                 )
             else
@@ -100,6 +100,12 @@ module LesliAdmin
                     :linkedin,
                     :facebook
                 ]
+            )
+        end
+
+        def account_payload(account)
+            account.as_json.merge(
+                "detail_attributes" => (account.admin.detail&.as_json || {})
             )
         end
 

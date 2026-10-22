@@ -57,7 +57,12 @@ class CreateLesliAdminAccountLocations < ActiveRecord::Migration[6.0]
         end
 
         add_reference(:lesli_admin_account_locations, :parent, foreign_key: { to_table: :lesli_admin_account_locations })
-        add_reference(:lesli_admin_account_locations, :account, foreign_key: { to_table: :lesli_accounts })
+        add_reference(
+            :lesli_admin_account_locations,
+            :account,
+            null: false,
+            foreign_key: { to_table: :lesli_admin_accounts }
+        )
         add_index(:lesli_admin_account_locations, %i[account_id name level parent_id], unique: true, name: "location_uniqueness_index")
     end
 end

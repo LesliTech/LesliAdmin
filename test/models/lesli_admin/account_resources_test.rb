@@ -10,8 +10,8 @@ module LesliAdmin
         end
 
         test "connects account resources to their owning account" do
-            assert_equal "Lesli::Account", LesliAdmin::Account::Detail.reflect_on_association(:account).class_name
-            assert_equal "Lesli::Account", LesliAdmin::Account::Location.reflect_on_association(:account).class_name
+            assert_equal "LesliAdmin::Account", LesliAdmin::Account::Detail.reflect_on_association(:account).class_name
+            assert_equal "LesliAdmin::Account", LesliAdmin::Account::Location.reflect_on_association(:account).class_name
             assert_equal "LesliAdmin::Account", LesliAdmin::Account::Currency.reflect_on_association(:account).class_name
             assert_equal "LesliAdmin::Account", LesliAdmin::Account::Setting.reflect_on_association(:account).class_name
         end

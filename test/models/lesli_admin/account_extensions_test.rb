@@ -16,11 +16,12 @@ module LesliAdmin
             }])
 
             @account = Lesli::Account.find_by!(email: "account-#{identifier}@example.com")
+            @admin_account = LesliAdmin::Account.create!(account: @account)
         end
 
-        test "adds the admin profile and location associations to the core account" do
-            detail = Lesli::Account.reflect_on_association(:detail)
-            locations = Lesli::Account.reflect_on_association(:admin_locations)
+        test "keeps the admin profile and locations in the admin account" do
+            detail = LesliAdmin::Account.reflect_on_association(:detail)
+            locations = LesliAdmin::Account.reflect_on_association(:locations)
 
             assert_equal "LesliAdmin::Account::Detail", detail.class_name
             assert_equal "LesliAdmin::Account::Location", locations.class_name
@@ -28,19 +29,19 @@ module LesliAdmin
 
         test "creates and updates one company profile through nested attributes" do
             assert_difference(-> { LesliAdmin::Account::Detail.count }, 1) do
-                @account.update!(detail_attributes: {
+                @admin_account.update!(detail_attributes: {
                     company_name: "Example Company",
                     public_email: "hello@example.com"
                 })
             end
 
             assert_no_difference(-> { LesliAdmin::Account::Detail.count }) do
-                @account.update!(detail_attributes: {
+                @admin_account.update!(detail_attributes: {
                     company_name: "Updated Company"
                 })
             end
 
-            assert_equal "Updated Company", @account.reload.detail.company_name
+            assert_equal "Updated Company", @admin_account.reload.detail.company_name
         end
 
         test "account service prepares an empty company profile for the form" do
@@ -48,8 +49,22 @@ module LesliAdmin
 
             account = LesliAdmin::AccountService.new(current_user).show
 
-            assert_predicate account.detail, :new_record?
+            assert_predicate account.admin.detail, :new_record?
             assert_equal @account.id, account.id
+        end
+
+        test "account service updates core and admin attributes together" do
+            current_user = Struct.new(:account).new(@account)
+            service = LesliAdmin::AccountService.new(current_user)
+
+            result = service.update(
+                name: "Updated Account",
+                detail_attributes: { company_name: "Example Company" }
+            )
+
+            assert_equal @account, result
+            assert_equal "Updated Account", @account.reload.name
+            assert_equal "Example Company", @admin_account.reload.detail.company_name
         end
 
         test "account service summarizes dashboard resources" do

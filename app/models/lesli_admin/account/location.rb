@@ -1,6 +1,6 @@
 module LesliAdmin
     class Account::Location < ApplicationRecord
-        belongs_to :account, class_name: "Lesli::Account", inverse_of: :admin_locations
+        belongs_to :account, class_name: "LesliAdmin::Account", inverse_of: :locations
         belongs_to :parent, class_name: "LesliAdmin::Account::Location", optional: true
 
         has_many(

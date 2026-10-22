@@ -4,7 +4,7 @@ module LesliAdmin
 
     # GET /account/details
     def index
-      @account_details = Account::Detail.all
+      @account_details = Account::Detail.where(account: admin_account)
     end
 
     # GET /account/details/1
@@ -13,7 +13,7 @@ module LesliAdmin
 
     # GET /account/details/new
     def new
-      @account_detail = Account::Detail.new
+      @account_detail = admin_account.build_detail
     end
 
     # GET /account/details/1/edit
@@ -22,7 +22,7 @@ module LesliAdmin
 
     # POST /account/details
     def create
-      @account_detail = Account::Detail.new(account_detail_params)
+      @account_detail = admin_account.build_detail(account_detail_params)
 
       if @account_detail.save
         redirect_to @account_detail, notice: "Detail was successfully created.", allow_other_host: false
@@ -49,7 +49,14 @@ module LesliAdmin
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_account_detail
-        @account_detail = Account::Detail.find(params.expect(:id))
+        @account_detail = Account::Detail.find_by!(
+          id: params.expect(:id),
+          account: admin_account
+        )
+      end
+
+      def admin_account
+        current_user.account.admin
       end
 
       # Only allow a list of trusted parameters through.
