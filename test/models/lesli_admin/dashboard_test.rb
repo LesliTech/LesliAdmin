@@ -15,8 +15,6 @@ module LesliAdmin
                 installed_engines
                 account_metadata
             ], component_names
-
-            assert_equal %w[locations currencies settings], LesliAdmin::Dashboard::RETIRED_COMPONENTS
         end
     end
 end

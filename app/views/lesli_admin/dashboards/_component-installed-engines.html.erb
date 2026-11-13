@@ -1,1 +1,4 @@
+<%# Widgets also render through LesliDashboard; share one summary per view render. %>
+<% @account_summary ||= LesliAdmin::AccountService.new(current_user).summary %>
+
 <%= render(LesliView::Widgets::Count.new("Installed engines", @account_summary[:installed_engines])) %>

@@ -1,3 +1,6 @@
+<%# Widgets also render through LesliDashboard; share one summary per view render. %>
+<% @account_summary ||= LesliAdmin::AccountService.new(current_user).summary %>
+
 <%
     account = @account_summary[:account]
     status_classes = case account.status

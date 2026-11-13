@@ -1,3 +1,11 @@
 ---
 en:
-  lesli_admin: {}
+  lesli_admin:
+    accounts: {}
+    dashboards: {}
+    items/attachments: {}
+    items/discussions: {}
+    items/tasks: {}
+    profiles: {}
+    settings: {}
+    shared: {}
