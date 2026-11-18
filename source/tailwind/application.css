@@ -2,7 +2,8 @@
 @layer theme, components, utilities;
 
 /* Theme values are loaded once by LesliAssets. */
-@reference "tailwindcss/theme.css";
+@import "tailwindcss/theme.css" theme(reference);
+@reference "../../../../gems/LesliAssets/source/tailwind/settings/theme.css";
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 
 @source "../../app/views/lesli_admin/accounts/show.html.erb";
@@ -13,15 +14,15 @@
 
 @layer components {
     .module-engine-card .partial-engine-spec > div {
-        @apply mb-4 border-b border-slate-200 pb-4;
+        @apply mb-4 border-b border-neutral-200 pb-4;
     }
 
     .module-engine-card .partial-engine-spec h5 {
-        @apply text-lg font-semibold text-slate-900;
+        @apply text-lg font-semibold text-neutral-900;
     }
 
     .module-engine-card .partial-engine-spec p {
-        @apply mt-1 text-sm leading-6 text-slate-600;
+        @apply mt-1 text-sm leading-6 text-neutral-600;
     }
 
     .module-engine-card .partial-engine-spec ul {
@@ -29,7 +30,7 @@
     }
 
     .module-engine-card .partial-engine-spec li {
-        @apply m-0 text-xs text-slate-600;
+        @apply m-0 text-xs text-neutral-600;
     }
 
     .module-engine-card .partial-engine-spec li:last-child,
@@ -37,3 +38,7 @@
         @apply hidden;
     }
 }
+
+
+@source "../../app/views/lesli_admin";
+@source "../../app/helpers";

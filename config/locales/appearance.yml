@@ -1,0 +1,55 @@
+en:
+  lesli_admin:
+    settings:
+      appearance:
+        title: "Appearance"
+        primary_color: "Primary color"
+        help: "Used for buttons, links and selection throughout this account."
+        save: "Save color"
+        restore: "Restore Lesli color"
+        saved: "Account appearance updated."
+        invalid_color: "must be a hexadecimal color such as #276AD6"
+es:
+  lesli_admin:
+    settings:
+      appearance:
+        title: "Apariencia"
+        primary_color: "Color primario"
+        help: "Se usa en botones, enlaces y selección en toda esta cuenta."
+        save: "Guardar color"
+        restore: "Restaurar color de Lesli"
+        saved: "Apariencia de la cuenta actualizada."
+        invalid_color: "debe ser un color hexadecimal como #276AD6"
+fr:
+  lesli_admin:
+    settings:
+      appearance:
+        title: "Apparence"
+        primary_color: "Couleur principale"
+        help: "Utilisée pour les boutons, liens et sélections de ce compte."
+        save: "Enregistrer la couleur"
+        restore: "Restaurer la couleur Lesli"
+        saved: "Apparence du compte mise à jour."
+        invalid_color: "doit être une couleur hexadécimale comme #276AD6"
+it:
+  lesli_admin:
+    settings:
+      appearance:
+        title: "Aspetto"
+        primary_color: "Colore principale"
+        help: "Usato per pulsanti, collegamenti e selezioni di questo account."
+        save: "Salva colore"
+        restore: "Ripristina il colore Lesli"
+        saved: "Aspetto dell’account aggiornato."
+        invalid_color: "deve essere un colore esadecimale come #276AD6"
+pt:
+  lesli_admin:
+    settings:
+      appearance:
+        title: "Aparência"
+        primary_color: "Cor principal"
+        help: "Usada nos botões, links e seleções desta conta."
+        save: "Salvar cor"
+        restore: "Restaurar a cor Lesli"
+        saved: "Aparência da conta atualizada."
+        invalid_color: "deve ser uma cor hexadecimal como #276AD6"

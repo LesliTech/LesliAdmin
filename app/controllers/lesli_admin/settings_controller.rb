@@ -1,58 +1,27 @@
 module LesliAdmin
-  class SettingsController < ApplicationController
-    before_action :set_setting, only: %i[ show edit update destroy ]
+    class SettingsController < ApplicationController
+        def show
+            @setting = SettingService.new(current_user).show.result
+        end
 
-    # GET /settings
-    def index
+        def update
+            attributes = params.require(:setting).permit(:value)
+            attributes[:value] = nil if params[:restore_primary_color] == "1"
+            service = SettingService.new(current_user).update(attributes)
+            @setting = service.result
+
+            if service.successful?
+                flash[:notice] = t("lesli_admin.settings.appearance.saved") unless request.format.json?
+                # Reload the full page so the layout applies the saved account theme.
+                respond_with_lesli(redirect: settings_path, json: { primary_color: @setting.value })
+            else
+                respond_with_lesli(
+                    html: :show,
+                    turbo: turbo_stream.replace("account-appearance", partial: "lesli_admin/settings/appearance"),
+                    json: { errors: @setting.errors.to_hash },
+                    status: :unprocessable_content
+                )
+            end
+        end
     end
-
-    # GET /settings/1
-    def show
-    end
-
-    # GET /settings/new
-    def new
-      @setting = Setting.new
-    end
-
-    # GET /settings/1/edit
-    def edit
-    end
-
-    # POST /settings
-    def create
-      @setting = Setting.new(setting_params)
-
-      if @setting.save
-        redirect_to @setting, notice: "Setting was successfully created."
-      else
-        render :new, status: :unprocessable_entity
-      end
-    end
-
-    # PATCH/PUT /settings/1
-    def update
-      if @setting.update(setting_params)
-        redirect_to @setting, notice: "Setting was successfully updated.", status: :see_other
-      else
-        render :edit, status: :unprocessable_entity
-      end
-    end
-
-    # DELETE /settings/1
-    def destroy
-      @setting.destroy!
-      redirect_to settings_path, notice: "Setting was successfully destroyed.", status: :see_other
-    end
-
-    private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_setting
-      end
-
-      # Only allow a list of trusted parameters through.
-      def setting_params
-        params.fetch(:setting, {})
-      end
-  end
 end

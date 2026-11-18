@@ -1,0 +1,21 @@
+<section id="account-appearance">
+    <%= form_with(model: @setting, scope: :setting, url: settings_path, method: :patch,
+        builder: LesliView::Forms::Builder, data: { turbo_frame: "_top" }) do |form| %>
+        <%= form.fieldset(t("lesli_admin.settings.appearance.title")) do %>
+            <%= form.field_control(:value,
+                type: "color",
+                value: @setting.color_input_value,
+                label: t("lesli_admin.settings.appearance.primary_color"),
+                message: @setting.errors[:value].presence&.to_sentence || t("lesli_admin.settings.appearance.help"),
+                category: @setting.errors[:value].any? ? "danger" : nil,
+                class: "h-14 cursor-pointer",
+                aria: { invalid: @setting.errors[:value].any? }) %>
+            <div class="flex flex-wrap gap-3">
+                <%= form.field_control_button(t("lesli_admin.settings.appearance.save"), icon: "save") %>
+                <%= form.field_control_button(t("lesli_admin.settings.appearance.restore"),
+                    { name: "restore_primary_color", value: "1", formnovalidate: true },
+                    icon: "restart_alt") %>
+            </div>
+        <% end %>
+    <% end %>
+</section>

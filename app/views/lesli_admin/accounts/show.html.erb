@@ -7,7 +7,7 @@
     ) %>
 
     <% if @account.errors.any? %>
-        <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+        <div class="mb-6 rounded-xl border border-danger-200 bg-danger-50 px-4 py-3 text-sm text-danger-700" role="alert">
             <p class="font-semibold">The account could not be updated.</p>
             <ul class="mt-2 list-disc space-y-1 pl-5">
                 <% @account.errors.full_messages.each do |message| %>
@@ -21,7 +21,7 @@
         <% tabs.with_tab(id: "general", title: "General", icon: "business") do %>
             <%= form_with(model: @account, url: account_path, builder: LesliView::Forms::Builder) do |form| %>
                 <%= form.fieldset("Core account") do %>
-                    <p class="mb-5 text-sm leading-6 text-slate-500">
+                    <p class="mb-5 text-sm leading-6 text-neutral-500">
                         These values identify the account throughout every installed Lesli engine.
                     </p>
 
