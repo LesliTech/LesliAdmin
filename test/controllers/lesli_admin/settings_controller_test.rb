@@ -19,7 +19,7 @@ module LesliAdmin
             @routes = LesliAdmin::Engine.routes
             @account = create_account
             @other_account = create_account
-            @controller.current_user = Struct.new(:account, :effective_time_zone).new(@account, Time.zone)
+            @controller.current_user = Struct.new(:account, :effective_timezone).new(@account, Time.zone)
         end
 
         test "updates only the authenticated account and redirects Turbo to reload its theme" do

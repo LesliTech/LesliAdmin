@@ -32,9 +32,9 @@ Building a better future, one line of code at a time.
 =end
 %>
 
-<%= navigation_item(lesli_admin.dashboard_path, "Dashboard", "ri-dashboard-3-line"); %>
-<%= navigation_item(lesli_admin.account_path, "Account", "ri-building-4-line"); %>
-<%= navigation_item(lesli_admin.settings_path, "Settings", "ri-settings-4-line"); %>
+<%= navigation_item(lesli_admin.dashboard_path, "Dashboard", "ri-dashboard-3-line", access: ["lesli_admin/dashboards", :show]); %>
+<%= navigation_item(lesli_admin.account_path, "Account", "ri-building-4-line", access: ["lesli_admin/accounts", :show]); %>
+<%= navigation_item(lesli_admin.settings_path, "Settings", "ri-settings-4-line", access: ["lesli_admin/settings", :show]); %>
 
 <%#= navigation_item(lesli.account_path, "Localization", "ri-time-line"); %>
 <%#= navigation_item(lesli.account_path, "Theming", "ri-paint-brush-line"); %>
